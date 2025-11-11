@@ -1,0 +1,234 @@
+{
+  "rules": [
+    {
+      "id": "R301", "deskripsi": "Agribisnis",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Pertanian'", "Fakta_Minat == 'Bisnis-Sosial'"],
+      "then": "Rekomendasi_Final = 'AGRIBISNIS'"
+    },
+    {
+      "id": "R302", "deskripsi": "Teknologi Pangan",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Pertanian'", "Fakta_Gaya == 'Terstruktur-Teliti'", "Fakta_Minat == 'Sains-Hayat'"],
+      "then": "Rekomendasi_Final = 'TEKNOLOGI PANGAN'"
+    },
+    {
+      "id": "R303", "deskripsi": "Teknik Pertanian",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Pertanian'", "Fakta_Bakat == 'Logika-Analitis'"],
+      "then": "Rekomendasi_Final = 'TEKNIK PERTANIAN'"
+    },
+    {
+      "id": "R304", "deskripsi": "Agroteknologi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Pertanian'", "Fakta_Minat == 'Sains-Hayat'", "Fakta_Tipe == 'Terapan'"],
+      "then": "Rekomendasi_Final = 'AGROTEKNOLOGI'"
+    },
+    {
+      "id": "R305", "deskripsi": "Proteksi Tanaman",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Pertanian'", "Fakta_Minat == 'Sains-Hayat'", "Fakta_Tipe == 'Teoretis'"],
+      "then": "Rekomendasi_Final = 'PROTEKSI TANAMAN'"
+    },
+    {
+      "id": "R306", "deskripsi": "Biologi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Biologi'", "Fakta_Tipe == 'Teoretis'", "Fakta_Gaya == 'Fleksibel-Adaptif'"],
+      "then": "Rekomendasi_Final = 'BIOLOGI'"
+    },
+    {
+      "id": "R307", "deskripsi": "Mikrobiologi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Biologi'", "Fakta_Tipe == 'Teoretis'", "Fakta_Gaya == 'Terstruktur-Teliti'"],
+      "then": "Rekomendasi_Final = 'MIKROBIOLOGI'"
+    },
+    {
+      "id": "R308", "deskripsi": "Biologi Terapan",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Biologi'", "Fakta_Tipe == 'Terapan'"],
+      "then": "Rekomendasi_Final = 'BIOLOGI TERAPAN'"
+    },
+    {
+      "id": "R309", "deskripsi": "Ekonomi Pembangunan",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ekonomi & Bisnis'", "Fakta_Orientasi == 'Manusia-Dinamis'"],
+      "then": "Rekomendasi_Final = 'EKONOMI PEMBANGUNAN'"
+    },
+    {
+      "id": "R310", "deskripsi": "Manajemen",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ekonomi & Bisnis'", "Fakta_Gaya == 'Manajerial'"],
+      "then": "Rekomendasi_Final = 'MANAJEMEN'"
+    },
+    {
+      "id": "R311", "deskripsi": "Akuntansi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ekonomi & Bisnis'", "Fakta_Gaya == 'Terstruktur-Teliti'"],
+      "then": "Rekomendasi_Final = 'AKUNTANSI'"
+    },
+    {
+      "id": "R312", "deskripsi": "Pendidikan Ekonomi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ekonomi & Bisnis'", "Fakta_Bakat == 'Pendidik'"],
+      "then": "Rekomendasi_Final = 'PENDIDIKAN EKONOMI'"
+    },
+    {
+      "id": "R313", "deskripsi": "Peternakan",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Peternakan'"],
+      "then": "Rekomendasi_Final = 'PETERNAKAN'"
+    },
+    {
+      "id": "R314", "deskripsi": "Hukum",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Hukum'"],
+      "then": "Rekomendasi_Final = 'HUKUM'"
+    },
+    {
+      "id": "R315", "deskripsi": "Sosiologi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas ISIP'", "Fakta_Tipe == 'Teoretis'"],
+      "then": "Rekomendasi_Final = 'SOSIOLOGI'"
+    },
+    {
+      "id": "R316", "deskripsi": "Administrasi Publik",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas ISIP'", "Fakta_Gaya == 'Terstruktur-Teliti'"],
+      "then": "Rekomendasi_Final = 'ADMINISTRASI PUBLIK'"
+    },
+    {
+      "id": "R317", "deskripsi": "Ilmu Komunikasi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas ISIP'", "Fakta_Kekuatan == 'Verbal-Lisan'"],
+      "then": "Rekomendasi_Final = 'ILMU KOMUNIKASI'"
+    },
+    {
+      "id": "R318", "deskripsi": "Ilmu Politik",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas ISIP'", "Fakta_Orientasi == 'Sistem-Logis'"],
+      "then": "Rekomendasi_Final = 'ILMU POLITIK'"
+    },
+    {
+      "id": "R319", "deskripsi": "Hubungan Internasional",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas ISIP'", "Fakta_Minat == 'Bahasa-Seni'"],
+      "then": "Rekomendasi_Final = 'HUBUNGAN INTERNASIONAL'"
+    },
+    {
+      "id": "R320", "deskripsi": "Pendidikan Dokter",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Kedokteran'", "Fakta_Tipe == 'Fokus-Abstrak'"],
+      "then": "Rekomendasi_Final = 'PENDIDIKAN DOKTER'"
+    },
+    {
+      "id": "R321", "deskripsi": "Kedokteran Gigi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Kedokteran'", "Fakta_Tipe == 'Fokus-Fisik'"],
+      "then": "Rekomendasi_Final = 'KEDOKTERAN GIGI'"
+    },
+    {
+      "id": "R322", "deskripsi": "Teknik Elektro",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Teknik'", "Fakta_Tipe == 'Fokus-Hardware'", "Fakta_Gaya == 'Spesialis'"],
+      "then": "Rekomendasi_Final = 'TEKNIK ELEKTRO'"
+    },
+    {
+      "id": "R323", "deskripsi": "Teknik Sipil",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Teknik'", "Fakta_Tipe == 'Fokus-Fisik'"],
+      "then": "Rekomendasi_Final = 'TEKNIK SIPIL'"
+    },
+    {
+      "id": "R324", "deskripsi": "Teknik Geologi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Teknik'", "Fakta_Minat == 'Sains-Hayat'"],
+      "then": "Rekomendasi_Final = 'TEKNIK GEOLOGI'"
+    },
+    {
+      "id": "R325", "deskripsi": "Informatika",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Teknik'", "Fakta_Tipe == 'Fokus-Abstrak'", "Fakta_Gaya == 'Individual-Fokus'"],
+      "then": "Rekomendasi_Final = 'INFORMATIKA'"
+    },
+    {
+      "id": "R326", "deskripsi": "Teknik Industri",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Teknik'", "Fakta_Gaya == 'Manajerial'"],
+      "then": "Rekomendasi_Final = 'TEKNIK INDUSTRI'"
+    },
+    {
+      "id": "R327", "deskripsi": "Teknik Komputer",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Teknik'", "Fakta_Tipe == 'Fokus-Hardware'", "Fakta_Tipe == 'Fokus-Abstrak'"],
+      "then": "Rekomendasi_Final = 'TEKNIK KOMPUTER'"
+    },
+    {
+      "id": "R328", "deskripsi": "Teknik Mesin",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Teknik'", "Fakta_Tipe == 'Fokus-Hardware'", "Fakta_Tipe == 'Fokus-Fisik'"],
+      "then": "Rekomendasi_Final = 'TEKNIK MESIN'"
+    },
+    {
+      "id": "R329", "deskripsi": "Kesehatan Masyarakat",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Kesehatan'", "Fakta_Orientasi == 'Manusia-Dinamis'"],
+      "then": "Rekomendasi_Final = 'KESEHATAN MASYARAKAT'"
+    },
+    {
+      "id": "R330", "deskripsi": "Keperawatan",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Kesehatan'", "Fakta_Bakat == 'Empati-Sosial'"],
+      "then": "Rekomendasi_Final = 'KEPERAWATAN'"
+    },
+    {
+      "id": "R331", "deskripsi": "Farmasi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Kesehatan'", "Fakta_Gaya == 'Terstruktur-Teliti'"],
+      "then": "Rekomendasi_Final = 'FARMASI'"
+    },
+    {
+      "id": "R332", "deskripsi": "Ilmu Gizi",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Kesehatan'", "Fakta_Minat == 'Sains-Hayat'", "Fakta_Gaya == 'Fleksibel-Adaptif'"],
+      "then": "Rekomendasi_Final = 'ILMU GIZI'"
+    },
+    {
+      "id":"R333", "deskripsi": "Pendidikan Jasmani",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Kesehatan'", "Fakta_Tipe == 'Fokus-Fisik'"],
+      "then": "Rekomendasi_Final = 'PENDIDIKAN JASMANI'"
+    },
+    {
+      "id": "R334", "deskripsi": "Sastra Inggris",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Budaya'", "Fakta_Tipe == 'Teoretis'", "Fakta_Minat == 'Bahasa-Seni'"],
+      "then": "Rekomendasi_Final = 'SASTRA INGGRIS'"
+    },
+    {
+      "id": "R335", "deskripsi": "Sastra Indonesia",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Budaya'", "Fakta_Tipe == 'Teoretis'", "Fakta_Minat == 'Bahasa-Seni'"],
+      "then": "Rekomendasi_Final = 'SASTRA INDONESIA'"
+    },
+    {
+      "id": "R336", "deskripsi": "Pendidikan Bahasa Indonesia",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Budaya'", "Fakta_Bakat == 'Pendidik'"],
+      "then": "Rekomendasi_Final = 'PENDIDIKAN BAHASA INDONESIA'"
+    },
+    {
+      "id": "R337", "deskripsi": "Pendidikan Bahasa Inggris",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Budaya'", "Fakta_Bakat == 'Pendidik'"],
+      "then": "Rekomendasi_Final = 'PENDIDIKAN BAHASA INGGRIS'"
+    },
+    {
+      "id": "R338", "deskripsi": "Sastra Jepang",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Budaya'", "Fakta_Tipe == 'Teoretis'", "Fakta_Minat == 'Bahasa-Seni'"],
+      "then": "Rekomendasi_Final = 'SASTRA JEPANG'"
+    },
+    {
+      "id": "R339", "deskripsi": "Pendidikan Bahasa Jepang",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Ilmu Budaya'", "Fakta_Bakat == 'Pendidik'"],
+      "then": "Rekomendasi_Final = 'PENDIDIKAN BAHASA JEPANG'"
+    },
+    {
+      "id": "R340", "deskripsi": "Kimia",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas MIPA'", "Fakta_Minat == 'Sains-Hayat'"],
+      "then": "Rekomendasi_Final = 'KIMIA'"
+    },
+    {
+      "id": "R341", "deskripsi": "Matematika",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas MIPA'", "Fakta_Minat == 'Sains-Kalkulatif'", "Fakta_Tipe == 'Teoretis'"],
+      "then": "Rekomendasi_Final = 'MATEMATIKA'"
+    },
+    {
+      "id": "R342", "deskripsi": "Fisika",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas MIPA'", "Fakta_Minat == 'Sains-Kalkulatif'", "Fakta_Tipe == 'Teoretis'"],
+      "then": "Rekomendasi_Final = 'FISIKA'"
+    },
+    {
+      "id": "R343", "deskripsi": "Statistika",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas MIPA'", "Fakta_Kekuatan == 'Kuantitatif-Data'"],
+      "then": "Rekomendasi_Final = 'STATISTIKA'"
+    },
+    {
+      "id": "R344", "deskripsi": "Manajemen Sumberdaya Perairan",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Perikanan & Kelautan'", "Fakta_Gaya == 'Manajerial'"],
+      "then": "Rekomendasi_Final = 'MANAJEMEN SUMBERDAYA PERAIRAN'"
+    },
+    {
+      "id": "R345", "deskripsi": "Akuakultur",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Perikanan & Kelautan'", "Fakta_Tipe == 'Terapan'"],
+      "then": "Rekomendasi_Final = 'AKUAKULTUR'"
+    },
+    {
+      "id": "R346", "deskripsi": "Ilmu Kelautan",
+      "if": ["Rekomendasi_Kelompok == 'Fakultas Perikanan & Kelautan'", "Fakta_Tipe == 'Teoretis'"],
+      "then": "Rekomendasi_Final = 'ILMU KELAUTAN'"
+    }
+  ]
+}

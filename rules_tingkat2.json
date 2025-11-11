@@ -1,0 +1,64 @@
+{
+  "rules": [
+    {
+      "id": "R201", "deskripsi": "Ke Fakultas Teknik (FT)",
+      "if": ["Fakta_Bakat == 'Logika-Analitis'", "Fakta_Tipe == 'Terapan'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas Teknik'"
+    },
+    {
+      "id": "R202", "deskripsi": "Ke Fakultas MIPA (FMIPA)",
+      "if": ["Fakta_Bakat == 'Logika-Analitis'", "Fakta_Tipe == 'Teoretis'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas MIPA'"
+    },
+    {
+      "id": "R203", "deskripsi": "Ke Fakultas Ekonomi & Bisnis (FEB)",
+      "if": ["Fakta_Minat == 'Bisnis-Sosial'", "Fakta_Orientasi == 'Sistem-Logis'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas Ekonomi & Bisnis'"
+    },
+    {
+      "id": "R204", "deskripsi": "Ke Fakultas ISIP (FISIP)",
+      "if": ["Fakta_Bakat == 'Empati-Sosial'", "Fakta_Orientasi == 'Manusia-Dinamis'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas ISIP'"
+    },
+    {
+      "id": "R205", "deskripsi": "Ke Fakultas Ilmu Budaya (FIB)",
+      "if": ["Fakta_Minat == 'Bahasa-Seni'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas Ilmu Budaya'"
+    },
+    {
+      "id": "R206", "deskripsi": "Ke Fakultas Kedokteran (FK)",
+      "if": ["Fakta_Minat == 'Sains-Hayat'", "Fakta_Bakat == 'Empati-Sosial'", "Fakta_Gaya == 'Terstruktur-Teliti'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas Kedokteran'"
+    },
+    {
+      "id": "R207", "deskripsi": "Ke Fakultas Ilmu Kesehatan (FIKES)",
+      "if": ["Fakta_Minat == 'Sains-Hayat'", "Fakta_Bakat == 'Empati-Sosial'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas Ilmu Kesehatan'"
+    },
+    {
+      "id": "R208", "deskripsi": "Ke Fakultas Pertanian",
+      "if": ["Fakta_Minat == 'Sains-Hayat'", "Fakta_Tipe == 'Terapan'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas Pertanian'"
+    },
+    {
+      "id": "R209", "deskripsi": "Ke Fakultas Biologi",
+      "if": ["Fakta_Minat == 'Sains-Hayat'", "Fakta_Tipe == 'Teoretis'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas Biologi'"
+    },
+    {
+      "id": "R210", "deskripsi": "Ke Fakultas Peternakan",
+      "if": ["Fakta_Minat == 'Sains-Hayat'", "Fakta_Tipe == 'Fokus-Fisik'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas Peternakan'"
+    },
+    {
+      "id": "R211", "deskripsi": "Ke Fakultas Hukum",
+      "if": ["Fakta_Gaya == 'Terstruktur-Teliti'", "Fakta_Kekuatan == 'Verbal-Lisan'", "Fakta_Orientasi == 'Sistem-Logis'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas Hukum'"
+    },
+    {
+      "id": "R212", "deskripsi": "Ke Fakultas Perikanan & Kelautan (FPIK)",
+      "if": ["Fakta_Minat == 'Sains-Hayat'", "Fakta_Tipe == 'Terapan'", "Fakta_Tipe == 'Fokus-Fisik'"],
+      "then": "Rekomendasi_Kelompok = 'Fakultas Perikanan & Kelautan'"
+    }
+  ]
+}

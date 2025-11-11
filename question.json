@@ -1,0 +1,98 @@
+[
+  {
+    "id": "Q1",
+    "kategori": "Kategori A: Minat & Aktivitas Pilihan",
+    "teks": "Saat punya waktu luang, aktivitas mana yang paling Anda nikmati dan membuat lupa waktu?",
+    "pilihan": [
+      { "value": "A", "teks": "Memecahkan teka-teki logika (Sudoku, Rubik), coding, atau bermain game strategi." },
+      { "value": "B", "teks": "Menggambar, mendesain, menulis cerita, atau membuat/mengedit video." },
+      { "value": "C", "teks": "Berdiskusi, berdebat, atau terlibat dalam kegiatan organisasi/sosial." },
+      { "value": "D", "teks": "Merakit/membongkar barang elektronik, atau melakukan eksperimen sederhana." }
+    ]
+  },
+  {
+    "id": "Q2",
+    "kategori": "Kategori A: Minat & Aktivitas Pilihan",
+    "teks": "Mata pelajaran mana yang paling Anda nikmati proses belajarnya (terlepas dari nilai)?",
+    "pilihan": [
+      { "value": "A", "teks": "Matematika, Fisika." },
+      { "value": "B", "teks": "Ekonomi, Sosiologi, Sejarah." },
+      { "value": "C", "teks": "Seni Rupa, Musik, Bahasa (Sastra)." },
+      { "value": "D", "teks": "Biologi, Kimia." }
+    ]
+  },
+  {
+    "id": "Q3",
+    "kategori": "Kategori A: Minat & Aktivitas Pilihan",
+    "teks": "Anda lebih tertarik untuk:",
+    "pilihan": [
+      { "value": "A", "teks": "Memahami *mengapa* sebuah sistem bekerja (misal: hukum alam, teori ekonomi)." },
+      { "value": "B", "teks": "Merancang dan *membuat* sistem baru agar bekerja (misal: aplikasi, mesin, acara)." }
+    ]
+  },
+  {
+    "id": "Q4",
+    "kategori": "Kategori B: Bakat & Cara Berpikir",
+    "teks": "Jika dihadapkan pada masalah yang kompleks, apa langkah pertama Anda?",
+    "pilihan": [
+      { "value": "A", "teks": "Menganalisis data, mencari pola, dan membuat kerangka logis/diagram alur." },
+      { "value": "B", "teks": "Membayangkan berbagai solusi 'di luar kotak', bahkan yang terdengar aneh." },
+      { "value": "C", "teks": "Mendiskusikannya dengan orang lain untuk mendengar berbagai perspektif." }
+    ]
+  },
+  {
+    "id": "Q5",
+    "kategori": "Kategori B: Bakat & Cara Berpikir",
+    "teks": "Anda lebih jago dalam:",
+    "pilihan": [
+      { "value": "A", "teks": "Menjelaskan ide rumit melalui angka, data, tabel, dan grafik." },
+      { "value": "B", "teks": "Menjelaskan ide rumit melalui tulisan, cerita, atau presentasi lisan." }
+    ]
+  },
+  {
+    "id": "Q6",
+    "kategori": "Kategori B: Bakat & Cara Berpikir",
+    "teks": "Manakah yang terdengar lebih 'Anda'?",
+    "pilihan": [
+      { "value": "A", "teks": "Saya teliti, terstruktur, dan suka mengikuti aturan/prosedur yang jelas." },
+      { "value": "B", "teks": "Saya fleksibel, mudah beradaptasi, dan suka mencari cara baru yang lebih efisien." }
+    ]
+  },
+  {
+    "id": "Q7",
+    "kategori": "Kategori C: Lingkungan & Tipe Pekerjaan",
+    "teks": "Anda paling produktif dan nyaman saat:",
+    "pilihan": [
+      { "value": "A", "teks": "Bekerja sendirian di tempat yang tenang, fokus pada satu tugas." },
+      { "value": "B", "teks": "Bekerja dalam tim, saling bertukar ide dan berkolaborasi." }
+    ]
+  },
+  {
+    "id": "Q8",
+    "kategori": "Kategori C: Lingkungan & Tipe Pekerjaan",
+    "teks": "Anda lebih suka pekerjaan yang:",
+    "pilihan": [
+      { "value": "A", "teks": "Menghasilkan sesuatu yang nyata, fisik, atau bisa dilihat/disentuh (misal: bangunan, produk, poster)." },
+      { "value": "B", "teks": "Menghasilkan sesuatu yang abstrak (misal: data, strategi, teori, layanan jasa)." }
+    ]
+  },
+  {
+    "id": "Q9",
+    "kategori": "Kategori C: Lingkungan & Tipe Pekerjaan",
+    "teks": "Dalam sebuah proyek kelompok, Anda sering mengambil peran sebagai:",
+    "pilihan": [
+      { "value": "A", "teks": "Pemimpin/Manajer: Mengatur jadwal, membagi tugas, dan memastikan semua berjalan." },
+      { "value": "B", "teks": "Ahli/Spesialis Teknis: Mengerjakan bagian tersulit yang butuh keahlian khusus." },
+      { "value": "C", "teks": "Komunikator/Mediator: Menjaga suasana tim dan memastikan semua orang didengar." }
+    ]
+  },
+  {
+    "id": "Q10",
+    "kategori": "Kategori C: Lingkungan & Tipe Pekerjaan",
+    "teks": "Orientasi Anda lebih condong ke:",
+    "pilihan": [
+      { "value": "A", "teks": "Sistem yang presisi dan logis (misal: kode komputer, mesin, hukum)." },
+      { "value": "B", "teks": "Sistem yang dinamis dan terkadang tidak terduga (misal: perilaku manusia, pasar, budaya)." }
+    ]
+  }
+]

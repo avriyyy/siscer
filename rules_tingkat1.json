@@ -1,0 +1,119 @@
+{
+  "rules": [
+    {
+      "id": "R101", "deskripsi": "Bakat Logika-Analitis",
+      "if": ["Jawaban_Q1 == 'A'", "Jawaban_Q4 == 'A'"],
+      "then": "Fakta_Bakat = 'Logika-Analitis'"
+    },
+    {
+      "id": "R102", "deskripsi": "Bakat Kreatif-Visual",
+      "if": ["Jawaban_Q1 == 'B'", "Jawaban_Q4 == 'B'"],
+      "then": "Fakta_Bakat = 'Kreatif-Visual'"
+    },
+    {
+      "id": "R103", "deskripsi": "Bakat Empati-Sosial",
+      "if": ["Jawaban_Q1 == 'C'", "Jawaban_Q4 == 'C'", "Jawaban_Q10 == 'B'"],
+      "then": "Fakta_Bakat = 'Empati-Sosial'"
+    },
+    {
+      "id": "R104", "deskripsi": "Minat Sains-Kalkulatif",
+      "if": ["Jawaban_Q2 == 'A'"],
+      "then": "Fakta_Minat = 'Sains-Kalkulatif'"
+    },
+    {
+      "id": "R105", "deskripsi": "Minat Bisnis-Sosial",
+      "if": ["Jawaban_Q2 == 'B'"],
+      "then": "Fakta_Minat = 'Bisnis-Sosial'"
+    },
+    {
+      "id": "R106", "deskripsi": "Minat Bahasa-Seni",
+      "if": ["Jawaban_Q2 == 'C'"],
+      "then": "Fakta_Minat = 'Bahasa-Seni'"
+    },
+    {
+      "id": "R107", "deskripsi": "Minat Sains-Hayat",
+      "if": ["Jawaban_Q2 == 'D'"],
+      "then": "Fakta_Minat = 'Sains-Hayat'"
+    },
+    {
+      "id": "R108", "deskripsi": "Tipe Teoretis (Memahami)",
+      "if": ["Jawaban_Q3 == 'A'"],
+      "then": "Fakta_Tipe = 'Teoretis'"
+    },
+    {
+      "id": "R109", "deskripsi": "Tipe Terapan (Membuat)",
+      "if": ["Jawaban_Q3 == 'B'"],
+      "then": "Fakta_Tipe = 'Terapan'"
+    },
+    {
+      "id": "R110", "deskripsi": "Kekuatan Kuantitatif-Data",
+      "if": ["Jawaban_Q5 == 'A'"],
+      "then": "Fakta_Kekuatan = 'Kuantitatif-Data'"
+    },
+    {
+      "id": "R111", "deskripsi": "Kekuatan Verbal-Lisan",
+      "if": ["Jawaban_Q5 == 'B'"],
+      "then": "Fakta_Kekuatan = 'Verbal-Lisan'"
+    },
+    {
+      "id": "R112", "deskripsi": "Gaya Terstruktur-Teliti",
+      "if": ["Jawaban_Q6 == 'A'"],
+      "then": "Fakta_Gaya = 'Terstruktur-Teliti'"
+    },
+    {
+      "id": "R113", "deskripsi": "Gaya Fleksibel-Adaptif",
+      "if": ["Jawaban_Q6 == 'B'"],
+      "then": "Fakta_Gaya = 'Fleksibel-Adaptif'"
+    },
+    {
+      "id": "R114", "deskripsi": "Gaya Individual-Fokus",
+      "if": ["Jawaban_Q7 == 'A'"],
+      "then": "Fakta_Gaya = 'Individual-Fokus'"
+    },
+    {
+      "id": "R115", "deskripsi": "Gaya Kolaboratif-Tim",
+      "if": ["Jawaban_Q7 == 'B'"],
+      "then": "Fakta_Gaya = 'Kolaboratif-Tim'"
+    },
+    {
+      "id": "R116", "deskripsi": "Tipe Fokus-Fisik (Nyata)",
+      "if": ["Jawaban_Q8 == 'A'"],
+      "then": "Fakta_Tipe = 'Fokus-Fisik'"
+    },
+    {
+      "id": "R117", "deskripsi": "Tipe Fokus-Abstrak (Jasa/Data)",
+      "if": ["Jawaban_Q8 == 'B'"],
+      "then": "Fakta_Tipe = 'Fokus-Abstrak'"
+    },
+    {
+      "id": "R118", "deskripsi": "Gaya Manajerial",
+      "if": ["Jawaban_Q9 == 'A'"],
+      "then": "Fakta_Gaya = 'Manajerial'"
+    },
+    {
+      "id": "R119", "deskripsi": "Gaya Spesialis Teknis",
+      "if": ["Jawaban_Q9 == 'B'"],
+      "then": "Fakta_Gaya = 'Spesialis'"
+    },
+    {
+      "id": "R120", "deskripsi": "Tipe Fokus-Hardware (Merakit)",
+      "if": ["Jawaban_Q1 == 'D'"],
+      "then": "Fakta_Tipe = 'Fokus-Hardware'"
+    },
+    {
+      "id": "R121", "deskripsi": "Orientasi Sistem-Logis",
+      "if": ["Jawaban_Q10 == 'A'"],
+      "then": "Fakta_Orientasi = 'Sistem-Logis'"
+    },
+    {
+      "id": "R122", "deskripsi": "Orientasi Manusia-Dinamis",
+      "if": ["Jawaban_Q10 == 'B'"],
+      "then": "Fakta_Orientasi = 'Manusia-Dinamis'"
+    },
+    {
+      "id": "R123", "deskripsi": "Minat Mengajar (Pendidikan)",
+      "if": ["Jawaban_Q5 == 'B'", "Jawaban_Q9 == 'C'"],
+      "then": "Fakta_Bakat = 'Pendidik'"
+    }
+  ]
+}
