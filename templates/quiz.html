@@ -1,37 +1,61 @@
 {% extends "base.html" %}
 
-{% block title %}Tes Minat Bakat{% endblock %}
+{% block title %}Quiz - Tes RIASEC{% endblock %}
 
 {% block content %}
 <div class="quiz-container">
-    <div class="card">
-        <h2 style="text-align: center; margin-bottom: 2rem;">Kuisioner RIASEC</h2>
-        
-        {% if error %}
-        <div style="background-color: #fee2e2; color: #b91c1c; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #f87171;">
-            <i class="fas fa-exclamation-circle"></i> {{ error }}
-        </div>
-        {% endif %}
-
-        <form action="{{ url_for('rekomendasi') }}" method="POST">
-            {% for question in questions %}
-            <div class="question-card">
-                <div class="question-text">{{ loop.index }}. {{ question.teks }}</div>
-                <div class="options-grid">
-                    {% for option in question.pilihan %}
-                    <label class="option-label">
-                        <input type="radio" name="{{ question.id }}" value="{{ option.value }}" class="option-input" required>
-                        <span>{{ option.teks }}</span>
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endfor %}
-
-            <div style="text-align: center; margin-top: 2rem;">
-                <button type="submit" class="btn btn-primary">Lihat Hasil Rekomendasi</button>
-            </div>
-        </form>
+    <div class="hero" style="margin-bottom: 3rem;">
+        <h1>TES PROFIL RIASEC</h1>
+        <p>Jawab 10 pertanyaan berikut dengan jujur sesuai dengan preferensi dan kepribadianmu. Tidak ada jawaban benar atau salah!</p>
     </div>
+
+    {% if error %}
+    <div class="error-message">
+        <i class="fas fa-exclamation-triangle"></i> {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('rekomendasi') }}">
+        {% for question in questions %}
+        <div class="question-card" data-number="Q{{ loop.index }}">
+            <div class="category-badge">{{ question.kategori }}</div>
+            <div class="question-text">{{ question.teks }}</div>
+            <div class="options-grid">
+                {% for pilihan in question.pilihan %}
+                <label class="option-label">
+                    <input type="radio" 
+                           name="{{ question.id }}" 
+                           value="{{ pilihan.value }}" 
+                           class="option-input"
+                           required>
+                    <span class="option-text">{{ pilihan.teks }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="submit-section">
+            <h3>SIAP MELIHAT HASILNYA?</h3>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check-circle"></i> LIHAT REKOMENDASI JURUSAN
+            </button>
+        </div>
+    </form>
 </div>
+
+<script>
+document.querySelectorAll('.option-label').forEach(label => {
+    label.addEventListener('click', function(e) {
+        if (e.target.tagName !== 'INPUT') {
+            const radio = this.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                const event = new Event('change');
+                radio.dispatchEvent(event);
+            }
+        }
+    });
+});
+</script>
 {% endblock %}

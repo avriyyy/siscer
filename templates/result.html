@@ -1,48 +1,37 @@
 {% extends "base.html" %}
 
-{% block title %}Hasil Rekomendasi{% endblock %}
+{% block title %}Hasil - Rekomendasi Jurusan{% endblock %}
 
 {% block content %}
 <div class="result-header">
-    <h1>Hasil Analisis Profil Kamu</h1>
-    <p>Berdasarkan jawabanmu, profil RIASEC dominanmu adalah:</p>
+    <h1>PROFIL RIASEC KAMU</h1>
     <div class="riasec-badge">{{ student_profile }}</div>
-    <p>Berikut adalah rekomendasi jurusan di Unsoed yang paling cocok untukmu:</p>
+    <p style="margin-top: 1.5rem; font-size: 1.125rem;">Berdasarkan jawaban kamu, berikut adalah 3 jurusan yang paling cocok dengan kepribadian dan minatmu!</p>
 </div>
 
 <div class="recommendation-list">
-    {% for result in top_3 %}
-    <div class="card major-card">
+    {% for item in top_3 %}
+    <div class="major-card">
         <div class="major-header">
-            <h2>{{ result.major }}</h2>
-            <span class="match-score">Kecocokan: {{ result.matching_score }}/10</span>
-        </div>
-        <div style="margin-bottom: 1rem;">
-            <span style="background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.85rem; color: #64748b;">
-                <i class="fas fa-tag"></i> Profil Jurusan: {{ result.riasec_code }}
-            </span>
-        </div>
-        <p>{{ result.explanation }}</p>
-        
-        <!-- Detail Profil Comparison (Optional Visualization) -->
-        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0;">
-            <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">Detail Kecocokan:</h4>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                {% for type, score in result.profil_detail.items() %}
-                {% if score > 0 %}
-                <div style="font-size: 0.8rem; color: #475569;">
-                    <strong>{{ type }}:</strong> {{ score }}
-                </div>
-                {% endif %}
-                {% endfor %}
+            <h3>{{ loop.index }}. {{ item.major }}</h3>
+            <div class="match-score">
+                <i class="fas fa-star"></i> {{ item.matching_score }}/10
             </div>
         </div>
+        <p style="margin-bottom: 1rem;">
+            <strong>Kode RIASEC:</strong> {{ item.riasec_code }}
+        </p>
+        <p>{{ item.explanation }}</p>
     </div>
     {% endfor %}
 </div>
 
 <div style="text-align: center; margin-top: 3rem;">
-    <a href="{{ url_for('quiz') }}" class="btn btn-outline">Coba Tes Lagi</a>
-    <a href="{{ url_for('index') }}" class="btn btn-primary" style="margin-left: 1rem;">Kembali ke Dashboard</a>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">
+        <i class="fas fa-home"></i> KEMBALI KE BERANDA
+    </a>
+    <a href="{{ url_for('quiz') }}" class="btn btn-primary" style="margin-left: 1rem;">
+        <i class="fas fa-redo"></i> ULANGI TES
+    </a>
 </div>
 {% endblock %}

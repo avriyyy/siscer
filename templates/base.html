@@ -6,7 +6,7 @@
     <title>{% block title %}Sistem Rekomendasi Jurusan{% endblock %} - Unsoed</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -15,12 +15,12 @@
         <div class="container">
             <nav>
                 <a href="{{ url_for('index') }}" class="logo">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>Unsoed Major Recommender</span>
+                    <i class="fas fa-book-open"></i>
+                    <span>Library Jurusan</span>
                 </a>
                 <div class="nav-links">
-                    <a href="{{ url_for('index') }}">Beranda</a>
-                    <a href="{{ url_for('quiz') }}">Mulai Tes</a>
+                    <a href="{{ url_for('index') }}">BERANDA</a>
+                    <a href="{{ url_for('quiz') }}">MULAI TES</a>
                 </div>
             </nav>
         </div>
@@ -34,8 +34,9 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Sistem Pakar Rekomendasi Jurusan - Universitas Jenderal Soedirman</p>
-            <p class="text-muted" style="font-size: 0.9rem; opacity: 0.7;">Menggunakan Metode Forward Chaining & Profil RIASEC</p>
+            <p>© 2024 SISTEM PAKAR REKOMENDASI JURUSAN</p>
+            <p>UNIVERSITAS JENDERAL SOEDIRMAN</p>
+            <p class="text-muted">Menggunakan Metode Forward Chaining & Profil RIASEC</p>
         </div>
     </footer>
 </body>
