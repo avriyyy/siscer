@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Tes Minat Bakat{% endblock %}
+
+{% block content %}
+<div class="quiz-container">
+    <div class="card">
+        <h2 style="text-align: center; margin-bottom: 2rem;">Kuisioner RIASEC</h2>
+        
+        {% if error %}
+        <div style="background-color: #fee2e2; color: #b91c1c; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px solid #f87171;">
+            <i class="fas fa-exclamation-circle"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="{{ url_for('rekomendasi') }}" method="POST">
+            {% for question in questions %}
+            <div class="question-card">
+                <div class="question-text">{{ loop.index }}. {{ question.teks }}</div>
+                <div class="options-grid">
+                    {% for option in question.pilihan %}
+                    <label class="option-label">
+                        <input type="radio" name="{{ question.id }}" value="{{ option.value }}" class="option-input" required>
+                        <span>{{ option.teks }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button type="submit" class="btn btn-primary">Lihat Hasil Rekomendasi</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

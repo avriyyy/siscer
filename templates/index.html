@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Rekomendasi Jurusan RIASEC</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card">
+            <h1>Kuis Rekomendasi Jurusan RIASEC</h1>
+            <p>Isi kuis berikut untuk mendapatkan rekomendasi jurusan yang sesuai dengan minat dan bakat Anda.</p>
+            {% if error %}
+            <div style="color: #e74c3c; background: rgba(231, 76, 60, 0.2); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                <strong>Error:</strong> {{ error }}
+            </div>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('rekomendasi') }}" id="quizForm">
+                {% for question in questions %}
+                {% set question_index = loop.index %}
+                <div class="question-card">
+                    <h3>{{ question_index }}. {{ question.teks }}</h3>
+                    {% for option in question.pilihan %}
+                    <div class="option">
+                        <label class="radio-label">
+                            <input type="radio" name="Q{{ question_index }}" value="{{ option.value }}" required>
+                            <span>{{ option.teks }}</span>
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="submit-btn">Lihat Rekomendasi Jurusan</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('quizForm').addEventListener('submit', function(e) {
+                // Check if all questions are answered
+                const questions = {{ questions | length }};
+                let allAnswered = true;
+
+                for (let i = 1; i <= questions; i++) {
+                    const radios = document.querySelectorAll(`input[name="Q${i}"]`);
+                    let answered = false;
+
+                    for (let j = 0; j < radios.length; j++) {
+                        if (radios[j].checked) {
+                            answered = true;
+                            break;
+                        }
+                    }
+
+                    if (!answered) {
+                        allAnswered = false;
+                        alert('Mohon jawab semua pertanyaan sebelum melanjutkan.');
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+
+                if (!allAnswered) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

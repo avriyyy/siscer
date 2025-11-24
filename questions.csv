@@ -1,0 +1,27 @@
+id,kategori,teks,option_value,option_text
+Q1,Kategori A: Minat & Aktivitas Pilihan,"Saat punya waktu luang, aktivitas mana yang paling Anda nikmati?",A,"Memecahkan teka-teki logika, coding, atau bermain game strategi."
+Q1,Kategori A: Minat & Aktivitas Pilihan,"Saat punya waktu luang, aktivitas mana yang paling Anda nikmati?",B,"Menggambar, mendesain, menulis cerita, atau membuat/mengedit video."
+Q1,Kategori A: Minat & Aktivitas Pilihan,"Saat punya waktu luang, aktivitas mana yang paling Anda nikmati?",C,"Berdiskusi, berdebat, atau terlibat dalam kegiatan organisasi/sosial."
+Q1,Kategori A: Minat & Aktivitas Pilihan,"Saat punya waktu luang, aktivitas mana yang paling Anda nikmati?",D,"Merakit/membongkar barang elektronik, atau melakukan eksperimen sederhana."
+Q2,Kategori A: Minat & Aktivitas Pilihan,Mata pelajaran mana yang paling Anda nikmati proses belajarnya?,A,"Matematika, Fisika."
+Q2,Kategori A: Minat & Aktivitas Pilihan,Mata pelajaran mana yang paling Anda nikmati proses belajarnya?,B,"Ekonomi, Sosiologi, Sejarah."
+Q2,Kategori A: Minat & Aktivitas Pilihan,Mata pelajaran mana yang paling Anda nikmati proses belajarnya?,C,"Seni Rupa, Musik, Bahasa (Sastra)."
+Q2,Kategori A: Minat & Aktivitas Pilihan,Mata pelajaran mana yang paling Anda nikmati proses belajarnya?,D,"Biologi, Kimia."
+Q3,Kategori A: Minat & Aktivitas Pilihan,Anda lebih tertarik untuk:,A,"Memahami *mengapa* sebuah sistem bekerja (misal: hukum alam, teori ekonomi)."
+Q3,Kategori A: Minat & Aktivitas Pilihan,Anda lebih tertarik untuk:,B,"Merancang dan *membuat* sistem baru agar bekerja (misal: aplikasi, mesin, acara)."
+Q4,Kategori B: Bakat & Cara Berpikir,"Jika dihadapkan pada masalah yang kompleks, apa langkah pertama Anda?",A,"Menganalisis data, mencari pola, dan membuat kerangka logis/diagram alur."
+Q4,Kategori B: Bakat & Cara Berpikir,"Jika dihadapkan pada masalah yang kompleks, apa langkah pertama Anda?",B,"Membayangkan berbagai solusi 'di luar kotak', bahkan yang terdengar aneh."
+Q4,Kategori B: Bakat & Cara Berpikir,"Jika dihadapkan pada masalah yang kompleks, apa langkah pertama Anda?",C,Mendiskusikannya dengan orang lain untuk mendengar berbagai perspektif.
+Q5,Kategori B: Bakat & Cara Berpikir,Anda lebih jago dalam:,A,"Menjelaskan ide rumit melalui angka, data, tabel, dan grafik."
+Q5,Kategori B: Bakat & Cara Berpikir,Anda lebih jago dalam:,B,"Menjelaskan ide rumit melalui tulisan, cerita, atau presentasi lisan."
+Q6,Kategori B: Bakat & Cara Berpikir,Manakah yang terdengar lebih 'Anda'?,A,"Saya teliti, terstruktur, dan suka mengikuti aturan/prosedur yang jelas."
+Q6,Kategori B: Bakat & Cara Berpikir,Manakah yang terdengar lebih 'Anda'?,B,"Saya fleksibel, mudah beradaptasi, dan suka mencari cara baru yang lebih efisien."
+Q7,Kategori C: Lingkungan & Tipe Pekerjaan,Anda paling produktif dan nyaman saat:,A,"Bekerja sendirian di tempat yang tenang, fokus pada satu tugas."
+Q7,Kategori C: Lingkungan & Tipe Pekerjaan,Anda paling produktif dan nyaman saat:,B,"Bekerja dalam tim, saling bertukar ide dan berkolaborasi."
+Q8,Kategori C: Lingkungan & Tipe Pekerjaan,Anda lebih suka pekerjaan yang:,A,"Menghasilkan sesuatu yang nyata, fisik, atau bisa dilihat/disentuh (misal: bangunan, produk, poster)."
+Q8,Kategori C: Lingkungan & Tipe Pekerjaan,Anda lebih suka pekerjaan yang:,B,"Menghasilkan sesuatu yang abstrak (misal: data, strategi, teori, layanan jasa)."
+Q9,Kategori C: Lingkungan & Tipe Pekerjaan,"Dalam sebuah proyek kelompok, Anda sering mengambil peran sebagai:",A,"Pemimpin/Manajer: Mengatur jadwal, membagi tugas, dan memastikan semua berjalan."
+Q9,Kategori C: Lingkungan & Tipe Pekerjaan,"Dalam sebuah proyek kelompok, Anda sering mengambil peran sebagai:",B,Ahli/Spesialis Teknis: Mengerjakan bagian tersulit yang butuh keahlian khusus.
+Q9,Kategori C: Lingkungan & Tipe Pekerjaan,"Dalam sebuah proyek kelompok, Anda sering mengambil peran sebagai:",C,Komunikator/Mediator: Menjaga suasana tim dan memastikan semua orang didengar.
+Q10,Kategori C: Lingkungan & Tipe Pekerjaan,Orientasi Anda lebih condong ke:,A,"Sistem yang presisi dan logis (misal: kode komputer, mesin, hukum)."
+Q10,Kategori C: Lingkungan & Tipe Pekerjaan,Orientasi Anda lebih condong ke:,B,"Sistem yang dinamis dan terkadang tidak terduga (misal: perilaku manusia, pasar, budaya)."

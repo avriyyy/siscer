@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Rekomendasi Jurusan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card results-card">
+            <h1>Hasil Rekomendasi Jurusan</h1>
+            <p>Profil RIASEC Anda: <strong>{{ student_profile }}</strong></p>
+            <h2>Rekomendasi Jurusan Terbaik:</h2>
+
+            <div class="results-list">
+                {% for result in top_3 %}
+                <div class="result-item">
+                    <div class="major-name">{{ result.major }}</div>
+                    <div class="major-details">
+                        <span class="riasec-code">Kode RIASEC: {{ result.riasec_code }}</span>
+                        <span class="match-score">Skor Kecocokan: {{ result.matching_score }}</span>
+                    </div>
+                    <div class="major-explanation">
+                        <p>{{ result.explanation }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <a href="{{ url_for('index') }}" class="back-btn">Kerjakan Kuis Lagi</a>
+        </div>
+    </div>
+</body>
+</html>
