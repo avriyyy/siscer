@@ -6,32 +6,76 @@
 <div class="result-header">
     <h1>PROFIL RIASEC KAMU</h1>
     <div class="riasec-badge">{{ student_profile }}</div>
-    <p style="margin-top: 1.5rem; font-size: 1.125rem;">Berdasarkan jawaban kamu, berikut adalah 3 jurusan yang paling cocok dengan kepribadian dan minatmu!</p>
+    <p style="margin-top: 2rem; font-size: 1.25rem; font-weight: 700;">
+        Berdasarkan jawaban kamu, berikut adalah 3 jurusan yang paling cocok dengan kepribadian dan minatmu!
+    </p>
 </div>
 
-<div class="recommendation-list">
+<div class="recommendation-list" style="max-width: 900px; margin: 0 auto;">
     {% for item in top_3 %}
     <div class="major-card">
-        <div class="major-header">
-            <h3>{{ loop.index }}. {{ item.major }}</h3>
+        <div class="major-rank">#{{ loop.index }}</div>
+        <div class="major-content">
+            <h3>{{ item.major }}</h3>
             <div class="match-score">
-                <i class="fas fa-star"></i> {{ item.matching_score }}/10
+                <i class="fas fa-star"></i> KECOCOKAN: {{ item.matching_score }}/10
+            </div>
+            <p style="margin-bottom: 1rem; font-weight: 700;">
+                KODE: <span style="background: #2C241B; color: white; padding: 2px 6px;">{{ item.riasec_code }}</span>
+            </p>
+            <p>{{ item.explanation }}</p>
+            
+            <button class="btn btn-secondary btn-sm" onclick="toggleDetails('details-{{ loop.index }}')" style="margin-top: 1rem; font-size: 0.8rem; padding: 0.5rem 1rem;">
+                <i class="fas fa-calculator"></i> LIHAT DETAIL PERHITUNGAN
+            </button>
+
+            <div id="details-{{ loop.index }}" style="display: none; margin-top: 1.5rem; text-align: left; background: #FAFAF8; padding: 1rem; border: 2px solid #2C241B;">
+                <h4 style="font-size: 1rem; margin-bottom: 0.5rem;">LOGIKA FORWARD CHAINING (COSINE SIMILARITY)</h4>
+                <p style="font-size: 0.85rem; margin-bottom: 1rem;">
+                    Sistem membandingkan profil RIASEC kamu dengan profil ideal jurusan ini menggunakan metode <strong>Cosine Similarity</strong>. Semakin mirip pola skornya, semakin tinggi kecocokannya.
+                </p>
+                
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; font-family: 'Space Grotesk', sans-serif;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #2C241B;">
+                            <th style="text-align: left; padding: 0.5rem;">TIPE</th>
+                            <th style="text-align: center; padding: 0.5rem;">SKOR KAMU</th>
+                            <th style="text-align: center; padding: 0.5rem;">PROFIL JURUSAN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for type in ['R', 'I', 'A', 'S', 'E', 'C'] %}
+                        <tr style="border-bottom: 1px solid #ddd;">
+                            <td style="padding: 0.5rem; font-weight: 700;">{{ type }}</td>
+                            <td style="text-align: center; padding: 0.5rem;">{{ student_scores[type] }}</td>
+                            <td style="text-align: center; padding: 0.5rem;">{{ item.profil_detail[type] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-        <p style="margin-bottom: 1rem;">
-            <strong>Kode RIASEC:</strong> {{ item.riasec_code }}
-        </p>
-        <p>{{ item.explanation }}</p>
     </div>
     {% endfor %}
 </div>
 
-<div style="text-align: center; margin-top: 3rem;">
+<div style="text-align: center; margin-top: 4rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
     <a href="{{ url_for('index') }}" class="btn btn-secondary">
         <i class="fas fa-home"></i> KEMBALI KE BERANDA
     </a>
-    <a href="{{ url_for('quiz') }}" class="btn btn-primary" style="margin-left: 1rem;">
+    <a href="{{ url_for('quiz') }}" class="btn btn-primary">
         <i class="fas fa-redo"></i> ULANGI TES
     </a>
 </div>
+
+<script>
+    function toggleDetails(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
 {% endblock %}

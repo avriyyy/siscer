@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="quiz-container">
-    <div class="hero" style="margin-bottom: 3rem;">
+    <div class="hero" style="margin-bottom: 3rem; padding: 2rem; min-height: auto;">
         <h1>TES PROFIL RIASEC</h1>
         <p>Jawab 10 pertanyaan berikut dengan jujur sesuai dengan preferensi dan kepribadianmu. Tidak ada jawaban benar atau salah!</p>
     </div>
@@ -17,28 +17,33 @@
 
     <form method="POST" action="{{ url_for('rekomendasi') }}">
         {% for question in questions %}
-        <div class="question-card" data-number="Q{{ loop.index }}">
-            <div class="category-badge">{{ question.kategori }}</div>
-            <div class="question-text">{{ question.teks }}</div>
-            <div class="options-grid">
-                {% for pilihan in question.pilihan %}
-                <label class="option-label">
-                    <input type="radio" 
-                           name="{{ question.id }}" 
-                           value="{{ pilihan.value }}" 
-                           class="option-input"
-                           required>
-                    <span class="option-text">{{ pilihan.teks }}</span>
-                </label>
-                {% endfor %}
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">PERTANYAAN {{ loop.index }}</span>
+                <span class="category-badge">{{ question.kategori }}</span>
+            </div>
+            <div class="question-body">
+                <div class="question-text">{{ question.teks }}</div>
+                <div class="options-grid">
+                    {% for pilihan in question.pilihan %}
+                    <label class="option-label">
+                        <input type="radio" 
+                               name="{{ question.id }}" 
+                               value="{{ pilihan.value }}" 
+                               class="option-input"
+                               required>
+                        <span class="option-text">{{ pilihan.teks }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         {% endfor %}
 
-        <div class="submit-section">
-            <h3>SIAP MELIHAT HASILNYA?</h3>
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-check-circle"></i> LIHAT REKOMENDASI JURUSAN
+        <div class="submit-section" style="text-align: center; margin-top: 4rem; padding: 2rem; border: 2px solid #2C241B; background: #FAFAF8; box-shadow: 6px 6px 0 #2C241B;">
+            <h3 style="margin-bottom: 1.5rem;">SIAP MELIHAT HASILNYA?</h3>
+            <button type="submit" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+                <i class="fas fa-check-circle"></i> LIHAT REKOMENDASI
             </button>
         </div>
     </form>

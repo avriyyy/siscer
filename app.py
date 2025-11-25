@@ -121,7 +121,7 @@ def inference_engine(answers):
 
     results.sort(key=lambda x: x['matching_score'], reverse=True)
 
-    return student_profile, results
+    return student_profile, results, skor
 
 
 def calculate_matching_score_v2(student_scores, major_profile):
@@ -195,12 +195,12 @@ def rekomendasi():
                                  error="Mohon jawab semua pertanyaan sebelum melanjutkan.")
     
 
-    student_profile, results = inference_engine(answers)
+    student_profile, results, student_scores = inference_engine(answers)
     
-
+    # Ambil 3 teratas
     top_3 = results[:3]
     
-    return render_template('result.html', top_3=top_3, student_profile=student_profile)
+    return render_template('result.html', top_3=top_3, student_profile=student_profile, student_scores=student_scores)
 
 if __name__ == '__main__':
     app.run(debug=True)
