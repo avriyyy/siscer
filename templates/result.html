@@ -59,6 +59,93 @@
     {% endfor %}
 </div>
 
+<div class="result-header" style="margin-top: 3rem; background: #E8F0FE; border-color: #4285F4;">
+    <h2 style="color: #1967D2; margin-bottom: 1rem;">REKOMENDASI AI ASSISTANT (LLM)</h2>
+    <p style="margin-bottom: 1.5rem;">
+        Dapatkan analisis mendalam dan rekomendasi tambahan dari AI Assistant (DeepSeek) berdasarkan profil RIASEC kamu.
+    </p>
+    
+    <div id="ai-section-content" style="text-align: center;">
+        <button id="btn-analyze-ai" class="btn btn-primary" style="background: #1967D2; border: none; padding: 1rem 2rem; font-size: 1.1rem;">
+            <i class="fas fa-robot"></i> ANALISIS DENGAN AI
+        </button>
+        <div id="ai-loading" style="display: none; margin-top: 1rem;">
+            <i class="fas fa-spinner fa-spin fa-2x" style="color: #1967D2;"></i>
+            <p style="margin-top: 0.5rem; color: #555;">Sedang menganalisis profilmu...</p>
+        </div>
+    </div>
+
+    <div id="ai-results" style="display: none; margin-top: 2rem;">
+        <div style="background: white; padding: 1.5rem; border-radius: 8px; border: 1px solid #4285F4; text-align: left; margin-bottom: 2rem;">
+            <h4 style="color: #1967D2; margin-bottom: 0.5rem;">ANALISIS PROFIL</h4>
+            <p id="ai-analysis-text"></p>
+        </div>
+
+        <div class="recommendation-list" id="ai-recommendations-list" style="max-width: 900px; margin: 0 auto;">
+            <!-- AI Recommendations will be injected here -->
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('btn-analyze-ai').addEventListener('click', function() {
+    const btn = this;
+    const loading = document.getElementById('ai-loading');
+    const resultsDiv = document.getElementById('ai-results');
+    const analysisText = document.getElementById('ai-analysis-text');
+    const recList = document.getElementById('ai-recommendations-list');
+
+    btn.style.display = 'none';
+    loading.style.display = 'block';
+
+    fetch('/analyze_ai', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        loading.style.display = 'none';
+        
+        if (data.error) {
+            alert('Error: ' + data.error);
+            btn.style.display = 'inline-block';
+            return;
+        }
+
+        // Render Analysis
+        analysisText.textContent = data.analysis;
+
+        // Render Recommendations
+        recList.innerHTML = '';
+        data.recommendations.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'major-card';
+            card.style.borderColor = '#4285F4';
+            card.style.boxShadow = '6px 6px 0 #4285F4';
+            
+            card.innerHTML = `
+                <div class="major-rank" style="border-color: #4285F4; color: #4285F4;">AI</div>
+                <div class="major-content">
+                    <h3 style="background: #4285F4; border-color: #1967D2;">${item.major}</h3>
+                    <p>${item.reasoning}</p>
+                </div>
+            `;
+            recList.appendChild(card);
+        });
+
+        resultsDiv.style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        loading.style.display = 'none';
+        btn.style.display = 'inline-block';
+        alert('Gagal mengambil analisis AI. Silakan coba lagi.');
+    });
+});
+</script>
+
 <div style="text-align: center; margin-top: 4rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
     <a href="{{ url_for('index') }}" class="btn btn-secondary">
         <i class="fas fa-home"></i> KEMBALI KE BERANDA

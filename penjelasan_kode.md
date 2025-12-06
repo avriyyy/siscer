@@ -1,93 +1,88 @@
-# PENERAPAN METODE FORWARD CHAINING PADA SISTEM PAKAR UNTUK REKOMENDASI JURUSAN BERDASARKAN MINAT DAN BAKAT SISWA
+# Penjelasan Kode Forward Chaining (Sistem Pakar)
 
-Dokumen ini menjelaskan implementasi kode sistem pakar rekomendasi jurusan yang dibangun menggunakan metode **Forward Chaining** dan algoritma pencocokan profil (_Profile Matching_) menggunakan _Cosine Similarity_.
+Kode implementasi Forward Chaining terdapat di dalam file `app.py`, khususnya pada class `ForwardChainingEngine`. Berikut adalah bedah kodenya:
 
-## 1. Konsep Dasar Forward Chaining dalam Sistem
+## 1. Class `ForwardChainingEngine`
 
-Metode **Forward Chaining** adalah teknik pencarian dalam sistem pakar yang dimulai dari sekumpulan fakta yang diketahui (data-driven), kemudian menerapkan aturan inferensi untuk mengekstrak lebih banyak data atau mencapai kesimpulan (goal).
-
-Dalam sistem ini:
-
-- **Fakta Awal:** Jawaban pengguna terhadap pertanyaan kuesioner (Minat & Bakat).
-- **Aturan (Rules):** Basis pengetahuan yang memetakan setiap jawaban ke skor tipe kepribadian RIASEC (Realistic, Investigative, Artistic, Social, Enterprising, Conventional).
-- **Inferensi:** Proses akumulasi skor berdasarkan jawaban yang dipilih untuk membentuk Profil Pengguna.
-- **Kesimpulan (Goal):** Rekomendasi jurusan yang paling sesuai dengan profil yang terbentuk.
-
-## 2. Struktur Basis Pengetahuan (Knowledge Base)
-
-Sistem menggunakan dua basis data utama dalam format CSV:
-
-### a. Aturan Penilaian (`rules.csv`)
-
-File ini berisi aturan inferensi. Setiap opsi jawaban memiliki bobot tertentu terhadap 6 tipe kepribadian RIASEC.
-
-_Contoh Data:_
-| Code | R | I | A | S | E | C |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1A | 0 | 2 | 0 | 0 | 0 | 0 |
-
-_Artinya:_ Jika pengguna memilih jawaban **Q1A**, maka sistem akan menambahkan skor **Investigative (I) +2**.
-
-### b. Profil Jurusan (`jurusan.csv`)
-
-File ini berisi profil ideal untuk setiap jurusan, yang menjadi target pencocokan.
-
-_Contoh Data:_
-| Jurusan | R | I | A | S | E | C |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| INFORMATIKA | 4 | 10 | 1 | 1 | 3 | 9 |
-
-## 3. Implementasi Kode
-
-Berikut adalah penjelasan fungsi-fungsi utama dalam `app.py` yang merepresentasikan logika sistem pakar.
-
-### A. Mesin Inferensi (`inference_engine`)
-
-Fungsi ini adalah inti dari proses **Forward Chaining**. Fungsi ini menerima fakta berupa jawaban pengguna (`answers`), kemudian menelusuri aturan (`rules`) untuk menghitung total skor profil pengguna.
+Ini adalah "otak" dari sistem pakar. Class ini bertugas menerima fakta (jawaban user) dan memprosesnya berdasarkan aturan (rules) untuk menghasilkan kesimpulan (skor RIASEC).
 
 ```python
-def inference_engine(answers):
-    # 1. Memuat Basis Pengetahuan
-    questions, rules, jurusan = load_knowledge_base()
-
-    # Inisialisasi skor awal (Fakta kosong)
-    skor = {'R': 0, 'I': 0, 'A': 0, 'S': 0, 'E': 0, 'C': 0}
-
-    # 2. Proses Forward Chaining (Data-Driven)
-    # Bergerak dari Fakta (Answer) -> Aturan -> Kesimpulan (Skor)
-    for answer in answers:
-        if answer in rules:
-            # Menerapkan aturan: Tambahkan bobot ke tipe kepribadian terkait
-            for riasec_type, points in rules[answer].items():
-                skor[riasec_type] += points
-
-    # ... (lanjutan logika pencocokan)
+class ForwardChainingEngine:
+    def __init__(self, knowledge_base):
+        self.kb = knowledge_base
+        self.facts = set()  # Menyimpan fakta-fakta (jawaban "Ya")
+        self.scores = {'R': 0, 'I': 0, 'A': 0, 'S': 0, 'E': 0, 'C': 0}
 ```
 
-### B. Pencocokan Profil (`calculate_matching_score_v2`)
+## 2. Metode `run()` - Inti Forward Chaining
 
-Setelah profil pengguna terbentuk (hasil dari forward chaining), sistem melakukan pencocokan dengan profil jurusan menggunakan metode **Cosine Similarity**. Metode ini mengukur kemiripan antara dua vektor (Vektor User vs Vektor Jurusan).
+Ini adalah algoritma utama Forward Chaining. Disebut "Forward" karena bergerak maju dari **Data (Fakta)** menuju **Kesimpulan (Skor)**.
 
 ```python
-def calculate_matching_score_v2(student_scores, major_profile):
-    # Menghitung kemiripan sudut antara vektor profil siswa dan jurusan
-    # Nilai mendekati 1 (atau 10 dalam skala 0-10) berarti sangat mirip
+    def run(self):
+        # 1. Reset skor ke 0 sebelum memulai
+        self.scores = {'R': 0, 'I': 0, 'A': 0, 'S': 0, 'E': 0, 'C': 0}
 
-    dot_product = sum(student_norm[t] * major_norm[t] for t in types)
-    # ...
-    score = cosine_similarity * 10
-    return round(score, 2)
+        # 2. Iterasi (Looping) melalui semua ATURAN yang ada di Knowledge Base
+        for rule in self.kb.rules:
+            # 3. Pengecekan Kondisi (IF)
+            # Apakah kondisi aturan ini (misal: "Q1Y") ada di dalam fakta user?
+            if rule.condition in self.facts:
+
+                # 4. Eksekusi Aksi (THEN) -> Rule Fired!
+                # Jika kondisi terpenuhi, tambahkan poin ke kategori yang sesuai
+                for category, points in rule.action.items():
+                    self.scores[category] += points
+
+        return self.scores
 ```
 
-### C. Penjelasan Hasil (`get_major_explanation`)
+**Analogi:** Bayangkan saklar lampu. Jika saklar ditekan (Fakta), maka lampu menyala (Aksi). Kode ini mengecek semua saklar yang ditekan user.
 
-Fungsi ini memberikan penjelasan naratif mengapa sebuah jurusan direkomendasikan, berdasarkan dominasi tipe kepribadian yang cocok (misal: "Jurusan ini membutuhkan dominasi tipe Investigative dan Conventional").
+## 3. Metode `recommend_majors()` - Pencocokan Pola
 
-## 4. Alur Kerja Sistem
+Setelah skor RIASEC didapatkan dari proses `run()`, sistem mencari jurusan yang paling cocok.
 
-1.  **Input:** Pengguna mengisi kuesioner di halaman `/quiz`.
-2.  **Proses:**
-    - Sistem menerima jawaban (Fakta).
-    - `inference_engine` mencocokkan jawaban dengan `rules.csv` untuk menghitung skor RIASEC (Forward Chaining).
-    - Sistem membandingkan skor pengguna dengan data di `jurusan.csv`.
-3.  **Output:** Sistem menampilkan 3 jurusan dengan nilai kecocokan tertinggi beserta penjelasannya.
+```python
+    def recommend_majors(self):
+        results = []
+        # Loop semua jurusan di database
+        for major_name, major_profile in self.kb.majors.items():
+            # Hitung kemiripan antara profil user (self.scores) dengan profil jurusan
+            match_score = self._calculate_similarity(self.scores, major_profile)
+
+            # ... (kode formatting hasil) ...
+
+            results.append({ ... })
+
+        # Urutkan hasil dari skor tertinggi ke terendah
+        results.sort(key=lambda x: x['matching_score'], reverse=True)
+        return results
+```
+
+## 4. Metode `_calculate_similarity()` - Cosine Similarity
+
+Sistem menggunakan rumus matematika **Cosine Similarity** untuk menghitung seberapa mirip profil user dengan profil jurusan.
+
+```python
+    def _calculate_similarity(self, user_scores, major_profile):
+        types = ['R', 'I', 'A', 'S', 'E', 'C']
+
+        # Buat vektor user dan vektor jurusan
+        user_vec = [user_scores[t] for t in types]
+        major_vec = [major_profile[t] for t in types]
+
+        # Rumus Cosine Similarity: (A . B) / (||A|| * ||B||)
+        dot_product = sum(u * m for u, m in zip(user_vec, major_vec))
+        user_mag = sum(u**2 for u in user_vec) ** 0.5
+        major_mag = sum(m**2 for m in major_vec) ** 0.5
+
+        if user_mag == 0 or major_mag == 0:
+            return 0
+
+        # Normalisasi hasil ke skala 0-100% (atau 0-10)
+        return (dot_product / (user_mag * major_mag)) * 10
+```
+
+**Kenapa Cosine Similarity?**
+Metode ini melihat "arah" minat, bukan hanya besaran angkanya. Jadi, jika pola minat user (misal: Tinggi di R dan I) mirip dengan pola jurusan (Tinggi di R dan I), maka skornya akan tinggi, meskipun nilai absolutnya berbeda.

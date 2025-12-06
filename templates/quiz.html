@@ -3,63 +3,243 @@
 {% block title %}Quiz - Tes RIASEC{% endblock %}
 
 {% block content %}
-<div class="quiz-container">
-    <div class="hero" style="margin-bottom: 3rem; padding: 2rem; min-height: auto;">
-        <h1>TES PROFIL RIASEC</h1>
-        <p>Jawab 10 pertanyaan berikut dengan jujur sesuai dengan preferensi dan kepribadianmu. Tidak ada jawaban benar atau salah!</p>
-    </div>
+<style>
+    .quiz-container {
+        max-width: 1000px; /* Wider to accommodate sidebar */
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    .quiz-layout-grid {
+        display: grid;
+        grid-template-columns: 300px 1fr; /* Sidebar | Content */
+        gap: 2rem;
+        align-items: start;
+    }
 
+    .info-sidebar {
+        background: #FAFAF8;
+        border: 2px solid #2C241B;
+        padding: 1.5rem;
+        border-radius: 8px;
+        position: sticky;
+        top: 2rem;
+        box-shadow: 4px 4px 0 #2C241B;
+    }
+
+    .questions-main {
+        min-width: 0; /* Prevent overflow */
+    }
+
+    .options-grid {
+        display: flex; /* Side-by-side options */
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .option-label {
+        flex: 1; /* Equal width */
+        text-align: center;
+        padding: 1rem;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .option-label:hover {
+        background-color: #f5f5f5;
+        border-color: #2C241B;
+    }
+    .option-input {
+        margin-right: 0.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .quiz-layout-grid {
+            grid-template-columns: 1fr;
+        }
+        .info-sidebar {
+            position: static;
+            margin-bottom: 2rem;
+        }
+    }
+</style>
+
+<div class="quiz-container">
     {% if error %}
-    <div class="error-message">
+    <div class="error-message" style="margin-bottom: 2rem;">
         <i class="fas fa-exclamation-triangle"></i> {{ error }}
     </div>
     {% endif %}
 
-    <form method="POST" action="{{ url_for('rekomendasi') }}">
-        {% for question in questions %}
-        <div class="question-card">
-            <div class="question-header">
-                <span class="question-number">PERTANYAAN {{ loop.index }}</span>
-                <span class="category-badge">{{ question.kategori }}</span>
-            </div>
-            <div class="question-body">
-                <div class="question-text">{{ question.teks }}</div>
-                <div class="options-grid">
-                    {% for pilihan in question.pilihan %}
-                    <label class="option-label">
-                        <input type="radio" 
-                               name="{{ question.id }}" 
-                               value="{{ pilihan.value }}" 
-                               class="option-input"
-                               required>
-                        <span class="option-text">{{ pilihan.teks }}</span>
-                    </label>
+    <form method="POST" action="{{ url_for('rekomendasi') }}" id="quiz-form">
+        <div class="quiz-layout-grid">
+            
+            <!-- LEFT SIDEBAR: Profile Info -->
+            <aside class="info-sidebar">
+                <h2 id="category-title" style="font-size: 1.5rem; margin-bottom: 1rem; color: #2C241B;">TES PROFIL RIASEC</h2>
+                <div style="width: 50px; height: 4px; background: #2C241B; margin-bottom: 1rem;"></div>
+                <p id="category-desc" style="font-size: 0.95rem; line-height: 1.6; color: #555;">
+                    Jawab 30 pertanyaan berikut dengan jujur sesuai dengan preferensi dan kepribadianmu.
+                </p>
+                
+                <div class="progress-section" style="margin-top: 2rem;">
+                    <label style="font-size: 0.8rem; font-weight: bold; display: block; margin-bottom: 0.5rem;">PROGRESS</label>
+                    <div class="progress-bar-container" style="background: #ddd; height: 8px; border-radius: 4px; overflow: hidden;">
+                        <div id="progress-bar" style="width: 0%; height: 100%; background: #2C241B; transition: width 0.3s ease;"></div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- RIGHT CONTENT: Questions -->
+            <main class="questions-main">
+                {% for category, items in questions_grouped %}
+                <div class="quiz-section" data-category="{{ category }}" id="section-{{ loop.index0 }}" style="display: none;">
+                    {% for question in items %}
+                    <div class="question-card" data-question-id="{{ question.id }}" style="margin-bottom: 1.5rem;">
+                        <div class="question-header">
+                            <span class="question-number">PERTANYAAN {{ loop.index }}</span>
+                            <span class="category-badge">{{ question.kategori }}</span>
+                        </div>
+                        <div class="question-body">
+                            <div class="question-text">{{ question.teks }}</div>
+                            <div class="options-grid">
+                                {% for pilihan in question.pilihan %}
+                                <label class="option-label">
+                                    <input type="radio" 
+                                           name="{{ question.id }}" 
+                                           value="{{ pilihan.value }}" 
+                                           class="option-input"
+                                           required>
+                                    <span class="option-text">{{ pilihan.teks }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
-            </div>
-        </div>
-        {% endfor %}
+                {% endfor %}
 
-        <div class="submit-section" style="text-align: center; margin-top: 4rem; padding: 2rem; border: 2px solid #2C241B; background: #FAFAF8; box-shadow: 6px 6px 0 #2C241B;">
-            <h3 style="margin-bottom: 1.5rem;">SIAP MELIHAT HASILNYA?</h3>
-            <button type="submit" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-                <i class="fas fa-check-circle"></i> LIHAT REKOMENDASI
-            </button>
+                <!-- Navigation Buttons -->
+                <div class="navigation-buttons" style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                    <button type="button" id="prev-btn" class="btn btn-secondary" style="display: none;">
+                        <i class="fas fa-arrow-left"></i> Sebelumnya
+                    </button>
+                    <button type="button" id="next-btn" class="btn btn-primary">
+                        Selanjutnya <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button type="submit" id="submit-btn" class="btn btn-success" style="display: none;">
+                        <i class="fas fa-check-circle"></i> Lihat Hasil
+                    </button>
+                </div>
+            </main>
+
         </div>
     </form>
 </div>
 
 <script>
-document.querySelectorAll('.option-label').forEach(label => {
-    label.addEventListener('click', function(e) {
-        if (e.target.tagName !== 'INPUT') {
-            const radio = this.querySelector('input[type="radio"]');
-            if (radio) {
-                radio.checked = true;
-                const event = new Event('change');
-                radio.dispatchEvent(event);
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('.quiz-section');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const heroTitle = document.getElementById('category-title');
+    const heroDesc = document.getElementById('category-desc');
+    
+    let currentStep = 0;
+    const totalSteps = sections.length;
+
+    // Descriptions for each profile
+    const profileDescriptions = {
+        'Realistic': "Tipe ini menyukai aktivitas fisik, bekerja dengan benda, mesin, peralatan, tanaman, atau hewan. Mereka lebih suka bekerja di luar ruangan.",
+        'Investigative': "Tipe ini suka mengamati, belajar, menyelidiki, menganalisis, mengevaluasi, atau memecahkan masalah.",
+        'Artistic': "Tipe ini memiliki kemampuan artistik, inovatif, atau intuisi. Mereka suka bekerja dalam situasi yang tidak terstruktur menggunakan imajinasi.",
+        'Social': "Tipe ini suka bekerja dengan orang lain untuk memberitahu, mencerahkan, membantu, melatih, mengembangkan, atau menyembuhkan.",
+        'Enterprising': "Tipe ini suka bekerja dengan orang lain untuk mempengaruhi, membujuk, melakukan, memimpin, atau mengelola untuk tujuan organisasi atau keuntungan ekonomi.",
+        'Conventional': "Tipe ini suka bekerja dengan data, memiliki kemampuan klerikal atau numerik, melakukan hal-hal secara detail, dan mengikuti instruksi."
+    };
+
+    function updateUI() {
+        // Hide all sections
+        sections.forEach(section => section.style.display = 'none');
+        
+        // Show current section
+        const currentSection = sections[currentStep];
+        currentSection.style.display = 'block';
+        
+        // Update Sidebar Info
+        const category = currentSection.getAttribute('data-category');
+        heroTitle.textContent = `Profil: ${category}`;
+        heroDesc.textContent = profileDescriptions[category] || "Jawab pertanyaan berikut.";
+        
+        // Update Progress
+        const progress = ((currentStep + 1) / totalSteps) * 100;
+        progressBar.style.width = `${progress}%`;
+
+        // Button Visibility
+        prevBtn.style.display = currentStep === 0 ? 'none' : 'inline-block';
+        
+        if (currentStep === totalSteps - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'inline-block';
+        } else {
+            nextBtn.style.display = 'inline-block';
+            submitBtn.style.display = 'none';
+        }
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateSection() {
+        const currentSection = sections[currentStep];
+        const inputs = currentSection.querySelectorAll('input[type="radio"]');
+        const questions = new Set();
+        inputs.forEach(input => questions.add(input.name));
+        
+        for (let qName of questions) {
+            const answered = currentSection.querySelector(`input[name="${qName}"]:checked`);
+            if (!answered) {
+                alert("Mohon jawab semua pertanyaan di bagian ini sebelum melanjutkan.");
+                return false;
             }
         }
+        return true;
+    }
+
+    nextBtn.addEventListener('click', () => {
+        if (validateSection()) {
+            if (currentStep < totalSteps - 1) {
+                currentStep++;
+                updateUI();
+            }
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            updateUI();
+        }
+    });
+
+    // Initialize
+    updateUI();
+
+    // Option click handler for better UX
+    document.querySelectorAll('.option-label').forEach(label => {
+        label.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'INPUT') {
+                const radio = this.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.checked = true;
+                    // Trigger change event manually if needed
+                }
+            }
+        });
     });
 });
 </script>

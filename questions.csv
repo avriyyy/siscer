@@ -1,27 +1,61 @@
 id,kategori,teks,option_value,option_text
-Q1,Kategori A: Minat & Aktivitas Pilihan,"Saat punya waktu luang, aktivitas mana yang paling Anda nikmati?",A,"Memecahkan teka-teki logika, coding, atau bermain game strategi."
-Q1,Kategori A: Minat & Aktivitas Pilihan,"Saat punya waktu luang, aktivitas mana yang paling Anda nikmati?",B,"Menggambar, mendesain, menulis cerita, atau membuat/mengedit video."
-Q1,Kategori A: Minat & Aktivitas Pilihan,"Saat punya waktu luang, aktivitas mana yang paling Anda nikmati?",C,"Berdiskusi, berdebat, atau terlibat dalam kegiatan organisasi/sosial."
-Q1,Kategori A: Minat & Aktivitas Pilihan,"Saat punya waktu luang, aktivitas mana yang paling Anda nikmati?",D,"Merakit/membongkar barang elektronik, atau melakukan eksperimen sederhana."
-Q2,Kategori A: Minat & Aktivitas Pilihan,Mata pelajaran mana yang paling Anda nikmati proses belajarnya?,A,"Matematika, Fisika."
-Q2,Kategori A: Minat & Aktivitas Pilihan,Mata pelajaran mana yang paling Anda nikmati proses belajarnya?,B,"Ekonomi, Sosiologi, Sejarah."
-Q2,Kategori A: Minat & Aktivitas Pilihan,Mata pelajaran mana yang paling Anda nikmati proses belajarnya?,C,"Seni Rupa, Musik, Bahasa (Sastra)."
-Q2,Kategori A: Minat & Aktivitas Pilihan,Mata pelajaran mana yang paling Anda nikmati proses belajarnya?,D,"Biologi, Kimia."
-Q3,Kategori A: Minat & Aktivitas Pilihan,Anda lebih tertarik untuk:,A,"Memahami mengapa sebuah sistem bekerja (misal: hukum alam, teori ekonomi)."
-Q3,Kategori A: Minat & Aktivitas Pilihan,Anda lebih tertarik untuk:,B,"Merancang dan membuat sistem baru agar bekerja (misal: aplikasi, mesin, acara)."
-Q4,Kategori B: Bakat & Cara Berpikir,"Jika dihadapkan pada masalah yang kompleks, apa langkah pertama Anda?",A,"Menganalisis data, mencari pola, dan membuat kerangka logis/diagram alur."
-Q4,Kategori B: Bakat & Cara Berpikir,"Jika dihadapkan pada masalah yang kompleks, apa langkah pertama Anda?",B,"Membayangkan berbagai solusi 'di luar kotak', bahkan yang terdengar aneh."
-Q4,Kategori B: Bakat & Cara Berpikir,"Jika dihadapkan pada masalah yang kompleks, apa langkah pertama Anda?",C,Mendiskusikannya dengan orang lain untuk mendengar berbagai perspektif.
-Q5,Kategori B: Bakat & Cara Berpikir,Anda lebih jago dalam:,A,"Menjelaskan ide rumit melalui angka, data, tabel, dan grafik."
-Q5,Kategori B: Bakat & Cara Berpikir,Anda lebih jago dalam:,B,"Menjelaskan ide rumit melalui tulisan, cerita, atau presentasi lisan."
-Q6,Kategori B: Bakat & Cara Berpikir,Manakah yang terdengar lebih 'Anda'?,A,"Saya teliti, terstruktur, dan suka mengikuti aturan/prosedur yang jelas."
-Q6,Kategori B: Bakat & Cara Berpikir,Manakah yang terdengar lebih 'Anda'?,B,"Saya fleksibel, mudah beradaptasi, dan suka mencari cara baru yang lebih efisien."
-Q7,Kategori C: Lingkungan & Tipe Pekerjaan,Anda paling produktif dan nyaman saat:,A,"Bekerja sendirian di tempat yang tenang, fokus pada satu tugas."
-Q7,Kategori C: Lingkungan & Tipe Pekerjaan,Anda paling produktif dan nyaman saat:,B,"Bekerja dalam tim, saling bertukar ide dan berkolaborasi."
-Q8,Kategori C: Lingkungan & Tipe Pekerjaan,Anda lebih suka pekerjaan yang:,A,"Menghasilkan sesuatu yang nyata, fisik, atau bisa dilihat/disentuh (misal: bangunan, produk, poster)."
-Q8,Kategori C: Lingkungan & Tipe Pekerjaan,Anda lebih suka pekerjaan yang:,B,"Menghasilkan sesuatu yang abstrak (misal: data, strategi, teori, layanan jasa)."
-Q9,Kategori C: Lingkungan & Tipe Pekerjaan,"Dalam sebuah proyek kelompok, Anda sering mengambil peran sebagai:",A,"Pemimpin/Manajer: Mengatur jadwal, membagi tugas, dan memastikan semua berjalan."
-Q9,Kategori C: Lingkungan & Tipe Pekerjaan,"Dalam sebuah proyek kelompok, Anda sering mengambil peran sebagai:",B,Ahli/Spesialis Teknis: Mengerjakan bagian tersulit yang butuh keahlian khusus.
-Q9,Kategori C: Lingkungan & Tipe Pekerjaan,"Dalam sebuah proyek kelompok, Anda sering mengambil peran sebagai:",C,Komunikator/Mediator: Menjaga suasana tim dan memastikan semua orang didengar.
-Q10,Kategori C: Lingkungan & Tipe Pekerjaan,Orientasi Anda lebih condong ke:,A,"Sistem yang presisi dan logis (misal: kode komputer, mesin, hukum)."
-Q10,Kategori C: Lingkungan & Tipe Pekerjaan,Orientasi Anda lebih condong ke:,B,"Sistem yang dinamis dan terkadang tidak terduga (misal: perilaku manusia, pasar, budaya)."
+Q1,Realistic,"Apakah Anda suka memperbaiki peralatan elektronik atau mekanik?",Y,Ya
+Q1,Realistic,"Apakah Anda suka memperbaiki peralatan elektronik atau mekanik?",N,Tidak
+Q2,Realistic,"Apakah Anda suka merakit komputer atau perabot rumah tangga?",Y,Ya
+Q2,Realistic,"Apakah Anda suka merakit komputer atau perabot rumah tangga?",N,Tidak
+Q3,Realistic,"Apakah Anda suka bekerja dengan mesin atau alat berat?",Y,Ya
+Q3,Realistic,"Apakah Anda suka bekerja dengan mesin atau alat berat?",N,Tidak
+Q4,Realistic,"Apakah Anda suka membuat kerajinan tangan dari kayu atau logam?",Y,Ya
+Q4,Realistic,"Apakah Anda suka membuat kerajinan tangan dari kayu atau logam?",N,Tidak
+Q5,Realistic,"Apakah Anda suka melakukan aktivitas fisik di luar ruangan (mendaki, berkebun)?",Y,Ya
+Q5,Realistic,"Apakah Anda suka melakukan aktivitas fisik di luar ruangan (mendaki, berkebun)?",N,Tidak
+Q6,Investigative,"Apakah Anda suka memecahkan teka-teki logika atau matematika?",Y,Ya
+Q6,Investigative,"Apakah Anda suka memecahkan teka-teki logika atau matematika?",N,Tidak
+Q7,Investigative,"Apakah Anda suka melakukan eksperimen sains atau penelitian?",Y,Ya
+Q7,Investigative,"Apakah Anda suka melakukan eksperimen sains atau penelitian?",N,Tidak
+Q8,Investigative,"Apakah Anda suka menganalisis data atau grafik statistik?",Y,Ya
+Q8,Investigative,"Apakah Anda suka menganalisis data atau grafik statistik?",N,Tidak
+Q9,Investigative,"Apakah Anda suka membaca buku tentang sains dan teknologi?",Y,Ya
+Q9,Investigative,"Apakah Anda suka membaca buku tentang sains dan teknologi?",N,Tidak
+Q10,Investigative,"Apakah Anda suka mencari tahu bagaimana cara kerja suatu benda?",Y,Ya
+Q10,Investigative,"Apakah Anda suka mencari tahu bagaimana cara kerja suatu benda?",N,Tidak
+Q11,Artistic,"Apakah Anda suka menggambar, melukis, atau membuat sketsa?",Y,Ya
+Q11,Artistic,"Apakah Anda suka menggambar, melukis, atau membuat sketsa?",N,Tidak
+Q12,Artistic,"Apakah Anda suka bermain alat musik atau bernyanyi?",Y,Ya
+Q12,Artistic,"Apakah Anda suka bermain alat musik atau bernyanyi?",N,Tidak
+Q13,Artistic,"Apakah Anda suka menulis cerita kreatif, puisi, atau naskah?",Y,Ya
+Q13,Artistic,"Apakah Anda suka menulis cerita kreatif, puisi, atau naskah?",N,Tidak
+Q14,Artistic,"Apakah Anda suka mendesain poster, pakaian, atau tata ruang?",Y,Ya
+Q14,Artistic,"Apakah Anda suka mendesain poster, pakaian, atau tata ruang?",N,Tidak
+Q15,Artistic,"Apakah Anda suka menonton pertunjukan seni, teater, atau film independen?",Y,Ya
+Q15,Artistic,"Apakah Anda suka menonton pertunjukan seni, teater, atau film independen?",N,Tidak
+Q16,Social,"Apakah Anda suka mengajar atau melatih orang lain?",Y,Ya
+Q16,Social,"Apakah Anda suka mengajar atau melatih orang lain?",N,Tidak
+Q17,Social,"Apakah Anda suka membantu teman yang sedang memiliki masalah pribadi?",Y,Ya
+Q17,Social,"Apakah Anda suka membantu teman yang sedang memiliki masalah pribadi?",N,Tidak
+Q18,Social,"Apakah Anda suka bekerja dalam kelompok atau tim?",Y,Ya
+Q18,Social,"Apakah Anda suka bekerja dalam kelompok atau tim?",N,Tidak
+Q19,Social,"Apakah Anda suka menjadi sukarelawan untuk kegiatan sosial?",Y,Ya
+Q19,Social,"Apakah Anda suka menjadi sukarelawan untuk kegiatan sosial?",N,Tidak
+Q20,Social,"Apakah Anda suka berdiskusi tentang isu-isu sosial kemasyarakatan?",Y,Ya
+Q20,Social,"Apakah Anda suka berdiskusi tentang isu-isu sosial kemasyarakatan?",N,Tidak
+Q21,Enterprising,"Apakah Anda suka memimpin sebuah tim atau organisasi?",Y,Ya
+Q21,Enterprising,"Apakah Anda suka memimpin sebuah tim atau organisasi?",N,Tidak
+Q22,Enterprising,"Apakah Anda suka menjual produk atau jasa kepada orang lain?",Y,Ya
+Q22,Enterprising,"Apakah Anda suka menjual produk atau jasa kepada orang lain?",N,Tidak
+Q23,Enterprising,"Apakah Anda suka berbicara di depan umum atau presentasi?",Y,Ya
+Q23,Enterprising,"Apakah Anda suka berbicara di depan umum atau presentasi?",N,Tidak
+Q24,Enterprising,"Apakah Anda suka mengelola bisnis atau usaha sendiri?",Y,Ya
+Q24,Enterprising,"Apakah Anda suka mengelola bisnis atau usaha sendiri?",N,Tidak
+Q25,Enterprising,"Apakah Anda suka meyakinkan orang lain untuk mengikuti ide Anda?",Y,Ya
+Q25,Enterprising,"Apakah Anda suka meyakinkan orang lain untuk mengikuti ide Anda?",N,Tidak
+Q26,Conventional,"Apakah Anda suka mengatur dokumen, arsip, atau data secara rapi?",Y,Ya
+Q26,Conventional,"Apakah Anda suka mengatur dokumen, arsip, atau data secara rapi?",N,Tidak
+Q27,Conventional,"Apakah Anda suka membuat jadwal atau rencana kegiatan yang terperinci?",Y,Ya
+Q27,Conventional,"Apakah Anda suka membuat jadwal atau rencana kegiatan yang terperinci?",N,Tidak
+Q28,Conventional,"Apakah Anda suka menghitung keuangan atau melakukan pembukuan?",Y,Ya
+Q28,Conventional,"Apakah Anda suka menghitung keuangan atau melakukan pembukuan?",N,Tidak
+Q29,Conventional,"Apakah Anda suka mengikuti prosedur atau aturan yang jelas dalam bekerja?",Y,Ya
+Q29,Conventional,"Apakah Anda suka mengikuti prosedur atau aturan yang jelas dalam bekerja?",N,Tidak
+Q30,Conventional,"Apakah Anda suka melakukan pekerjaan yang membutuhkan ketelitian tinggi?",Y,Ya
+Q30,Conventional,"Apakah Anda suka melakukan pekerjaan yang membutuhkan ketelitian tinggi?",N,Tidak
