@@ -3,6 +3,9 @@ from openai import OpenAI
 import json
 import os
 import csv
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'siscer_secret_key_2024' # Required for session
@@ -178,8 +181,11 @@ class ForwardChainingEngine:
 # 3. LLM HELPER
 # ==========================================
 
+from groq import Groq
+
 def get_llm_recommendation(student_scores):
-    api_key = "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"
+    # API Key provided by user
+    api_key = os.getenv("GROQ_API_KEY")
     
     # Load full knowledge base from CSV to include Faculty and Scores
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -220,24 +226,22 @@ def get_llm_recommendation(student_scores):
     }}
     """
     
-    client = OpenAI(
-      base_url="https://openrouter.ai/api/v1",
-      api_key=api_key,
-    )
+    client = Groq(api_key=api_key)
 
     try:
         completion = client.chat.completions.create(
-          extra_headers={
-            "HTTP-Referer": "http://localhost:5000", 
-            "X-Title": "SISCER", 
-          },
-          model="x-ai/grok-4.1-fast:free",
-          messages=[
-            {
-              "role": "user",
-              "content": prompt
-            }
-          ]
+            model="llama-3.3-70b-versatile", # Switched to a supported model
+            messages=[
+              {
+                "role": "user",
+                "content": prompt
+              }
+            ],
+            temperature=0.6,
+            max_completion_tokens=4096,
+            top_p=0.95,
+            stop=None,
+            stream=False # We need the full response for JSON parsing, not stream
         )
         
         content = completion.choices[0].message.content

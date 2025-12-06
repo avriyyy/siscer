@@ -87,7 +87,7 @@ def test_forward_chaining(test_cases):
     return avg_latency, accuracy
 
 def test_llm(test_cases):
-    print("\n--- Testing LLM (x-ai/grok-4.1-fast:free) ---")
+    print("\n--- Testing LLM (Groq: llama-3.3-70b-versatile) ---")
     print("Note: This involves real API calls and may take some time...")
     
     latencies = []
@@ -165,45 +165,15 @@ def plot_results(fc_metrics, llm_metrics):
     print("\nGrafik telah disimpan sebagai 'model_performance_comparison.png'")
     plt.show()
 
-def run_multiple_iterations(num_iterations=10):
-    print(f"\n=== Starting {num_iterations} Iterations of Testing ===")
-    
-    all_fc_latencies = []
-    all_fc_accuracies = []
-    all_llm_latencies = []
-    all_llm_accuracies = []
-    
+if __name__ == "__main__":
+    # 1. Generate Data
     test_cases = generate_synthetic_test_cases()
     
-    for i in range(num_iterations):
-        print(f"\n--- Iteration {i+1}/{num_iterations} ---")
-        
-        # Test Forward Chaining
-        fc_lat, fc_acc = test_forward_chaining(test_cases)
-        all_fc_latencies.append(fc_lat)
-        all_fc_accuracies.append(fc_acc)
-        
-        # Test LLM
-        llm_lat, llm_acc = test_llm(test_cases)
-        all_llm_latencies.append(llm_lat)
-        all_llm_accuracies.append(llm_acc)
-        
-    # Calculate Averages
-    avg_fc_latency = sum(all_fc_latencies) / num_iterations
-    avg_fc_accuracy = sum(all_fc_accuracies) / num_iterations
+    # 2. Test Forward Chaining
+    fc_metrics = test_forward_chaining(test_cases)
     
-    avg_llm_latency = sum(all_llm_latencies) / num_iterations
-    avg_llm_accuracy = sum(all_llm_accuracies) / num_iterations
+    # 3. Test LLM
+    llm_metrics = test_llm(test_cases)
     
-    print("\n=== Final Results (Average of 10 Runs) ===")
-    print(f"Forward Chaining - Avg Latency: {avg_fc_latency:.4f}s, Avg Accuracy: {avg_fc_accuracy:.2f}%")
-    print(f"LLM (AI)         - Avg Latency: {avg_llm_latency:.4f}s, Avg Accuracy: {avg_llm_accuracy:.2f}%")
-    
-    return (avg_fc_latency, avg_fc_accuracy), (avg_llm_latency, avg_llm_accuracy)
-
-if __name__ == "__main__":
-    # Run 10 iterations
-    fc_metrics, llm_metrics = run_multiple_iterations(10)
-    
-    # Visualize
+    # 4. Visualize
     plot_results(fc_metrics, llm_metrics)
