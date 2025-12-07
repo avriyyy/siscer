@@ -1,0 +1,7 @@
+Flask
+python-dotenv
+groq
+openai
+matplotlib
+numpy
+pandas
