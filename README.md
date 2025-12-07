@@ -87,7 +87,7 @@ Berikut adalah grafik perbandingan performa yang dihasilkan dari skrip pengujian
 1.  **Clone Repository**
 
     ```bash
-    git clone https://github.com/username/siscer.git
+    git clone https://github.com/avriyyy/siscer.git
     cd siscer
     ```
 
