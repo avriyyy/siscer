@@ -15,7 +15,7 @@ Sistem bekerja dengan alur data-driven (berbasis data), ciri khas utama dari For
 3.  **Eksekusi Rule (Firing)**: Jika premis aturan cocok dengan fakta (misal: User menjawab Q1 'Ya'), maka konklusi dijalankan (Skor Realistic bertambah).
 4.  **Pencocokan Profil**: Skor akhir pengguna dihitung kemiripannya dengan profil ideal setiap jurusan menggunakan _Cosine Similarity_.
 
-## Bedah Kode: Forward Chaining
+## Forward Chaining
 
 Logika inti sistem tidak menggunakan `if-else` bertingkat yang rumit, melainkan memisahkan antara **Data (Rules)** dan **Logika (Engine)**. Ini membuat sistem mudah dikelola.
 
