@@ -2,15 +2,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 import os
-from openai import OpenAI
+from dotenv import load_dotenv
+from groq import Groq
 from app import KnowledgeBase, ForwardChainingEngine
+
+load_dotenv()
 
 def get_llm_probabilities(student_scores, majors_list):
     """
     Asks LLM to rate the probability/suitability of EACH major for the student.
     Returns a dictionary: {major_name: score_0_to_10}
     """
-    api_key = "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"
+    api_key = os.getenv("GROQ_API_KEY")
     
     scores_text = ", ".join([f"{k}: {v}" for k, v in student_scores.items()])
     majors_text = ", ".join(majors_list)
@@ -38,26 +41,27 @@ def get_llm_probabilities(student_scores, majors_list):
     }}
     """
     
-    client = OpenAI(
-      base_url="https://openrouter.ai/api/v1",
-      api_key=api_key,
-    )
+    client = Groq(api_key=api_key)
+
+    model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
     try:
         print("Requesting analysis from LLM (this may take a moment)...")
         completion = client.chat.completions.create(
-          extra_headers={
-            "HTTP-Referer": "http://localhost:5000", 
-            "X-Title": "SISCER_TEST", 
-          },
-          model="x-ai/grok-4.1-fast:free",
-          messages=[
-            {"role": "user", "content": prompt}
-          ]
+            model=model_name,
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.6,
+            max_completion_tokens=4096,
+            top_p=0.95,
+            stop=None,
+            stream=False
         )
         
         content = completion.choices[0].message.content
-        
+        print(f"DEBUG: Raw LLM Content:\n{content[:500]}...") # Print first 500 chars
+
         # Parse JSON
         if "```json" in content:
             content = content.split("```json")[1].split("```")[0].strip()
@@ -93,6 +97,8 @@ def main():
 
     # 3. Calculate LLM Scores
     llm_scores_map = get_llm_probabilities(test_student_scores, majors_names)
+    print(f"DEBUG: LLM Response Keys: {list(llm_scores_map.keys())}")
+    print(f"DEBUG: Expected Majors: {majors_names}")
     
     # Align LLM scores with the majors list (handle missing keys if any)
     llm_scores = []
@@ -100,7 +106,14 @@ def main():
     
     for major in majors_names:
         fc_scores_list.append(fc_scores.get(major, 0))
-        llm_scores.append(llm_scores_map.get(major, 0))
+        val = llm_scores_map.get(major, 0)
+        if val == 0:
+             # Try to find a partial match or case-insensitive match
+             for k, v in llm_scores_map.items():
+                 if major.lower() in k.lower() or k.lower() in major.lower():
+                     val = v
+                     break
+        llm_scores.append(val)
 
     # 4. Visualization
     x = np.arange(len(majors_names))

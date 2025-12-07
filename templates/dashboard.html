@@ -40,10 +40,12 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="riasec-data" type="application/json">
+    {{ chart_data | tojson }}
+</script>
 <script>
     const ctx = document.getElementById('riasecChart').getContext('2d');
-    // eslint-disable-next-line
-    const chartData = {{ chart_data | tojson }};
+    const chartData = JSON.parse(document.getElementById('riasec-data').textContent);
     
     new Chart(ctx, {
         type: 'bar',

@@ -1,7 +1,11 @@
 import time
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+from dotenv import load_dotenv
 from app import ForwardChainingEngine, KnowledgeBase, get_llm_recommendation
+
+load_dotenv()
 
 def generate_synthetic_test_cases():
     """
@@ -87,7 +91,8 @@ def test_forward_chaining(test_cases):
     return avg_latency, accuracy
 
 def test_llm(test_cases):
-    print("\n--- Testing LLM (Groq: llama-3.3-70b-versatile) ---")
+    model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+    print(f"\n--- Testing LLM (Groq: {model_name}) ---")
     print("Note: This involves real API calls and may take some time...")
     
     latencies = []

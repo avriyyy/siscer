@@ -1,6 +1,10 @@
 import matplotlib.pyplot as plt
 import time
+import os
+from dotenv import load_dotenv
 from app import KnowledgeBase, ForwardChainingEngine, get_llm_recommendation
+
+load_dotenv()
 
 def run_comparative_evaluation():
     """
@@ -46,10 +50,11 @@ def run_comparative_evaluation():
     fc_acc = (fc_correct / len(test_cases)) * 100
     fc_avg_lat = sum(fc_latencies) / len(fc_latencies)
 
-    # 2. Test LLM (x-ai/grok-4.1-fast:free)
+    # 2. Test LLM
+    model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
     llm_latencies = []
     llm_correct = 0
-    print("Running LLM Evaluation (x-ai/grok-4.1-fast:free)...")
+    print(f"Running LLM Evaluation (Groq: {model_name})...")
     
     for case in test_cases:
         start = time.time()
@@ -66,22 +71,33 @@ def run_comparative_evaluation():
     llm_acc = (llm_correct / len(test_cases)) * 100
     llm_avg_lat = sum(llm_latencies) / len(llm_latencies)
     
+    # Calculate Distribution for the second table
+    riasec_counts = {'R': 0, 'I': 0, 'A': 0, 'S': 0, 'E': 0, 'C': 0}
+    for major, profile in kb.majors.items():
+        p_only = {k: v for k, v in profile.items() if k in ['R','I','A','S','E','C']}
+        dominant = max(p_only, key=p_only.get)
+        riasec_counts[dominant] += 1
+        
     return {
         'FC': {'Accuracy': fc_acc, 'Latency': fc_avg_lat},
-        'LLM': {'Accuracy': llm_acc, 'Latency': llm_avg_lat}
+        'LLM': {'Accuracy': llm_acc, 'Latency': llm_avg_lat},
+        'Distribution': riasec_counts,
+        'TotalMajors': len(kb.majors),
+        'ModelName': model_name
     }
 
 def create_comparison_visualization(results):
-    fig = plt.figure(figsize=(12, 8))
+    fig = plt.figure(figsize=(12, 10))
     
     # Title
-    plt.suptitle("Perbandingan Hasil Evaluasi Model", fontsize=16, fontweight='bold', y=0.95)
+    plt.suptitle("Laporan Evaluasi & Distribusi Data Sistem Pakar", fontsize=16, fontweight='bold', y=0.96)
     
     # 1. Evaluation Table (Top)
     ax1 = plt.subplot2grid((2, 1), (0, 0))
     ax1.axis('off')
+    ax1.set_title("Perbandingan Performa Model", fontsize=12, fontweight='bold', loc='left', pad=10)
     
-    col_labels = ['Metrik Evaluasi', 'Forward Chaining (Rule-Based)', 'LLM (x-ai/grok-4.1-fast:free)']
+    col_labels = ['Metrik Evaluasi', 'Forward Chaining (Rule-Based)', f"LLM({results['ModelName']})"]
     table_data = [
         ['Akurasi (Kesesuaian Profil)', f"{results['FC']['Accuracy']:.1f}%", f"{results['LLM']['Accuracy']:.1f}%"],
         ['Rata-rata Waktu Respon (Latency)', f"{results['FC']['Latency']:.4f} detik", f"{results['LLM']['Latency']:.4f} detik"],
@@ -95,7 +111,7 @@ def create_comparison_visualization(results):
     table.auto_set_font_size(False)
     table.set_fontsize(11)
     
-    # Styling Table
+    # Styling Table 1
     for (row, col), cell in table.get_celld().items():
         if row == 0:
             cell.set_text_props(weight='bold', color='white')
@@ -103,24 +119,41 @@ def create_comparison_visualization(results):
         else:
             cell.set_facecolor('#FAFAF8')
             
-    # 2. Analysis Text (Bottom)
+    # 2. Distribution Table (Bottom) - Replacing Analysis Text
     ax2 = plt.subplot2grid((2, 1), (1, 0))
     ax2.axis('off')
+    ax2.set_title("Distribusi Jurusan per Tipe RIASEC", fontsize=12, fontweight='bold', loc='left', pad=10)
     
-    analysis_text = (
-        "ANALISIS SINGKAT PERBANDINGAN:\n\n"
-        "1. Kecepatan (Latency): Forward Chaining jauh lebih unggul karena berjalan secara lokal tanpa overhead jaringan,\n"
-        "   menjadikannya ideal untuk respons instan.\n\n"
-        "2. Akurasi: Forward Chaining memiliki akurasi 100% terhadap aturan yang telah didefinisikan karena sifatnya yang deterministik.\n"
-        "   LLM (x-ai/grok-4.1-fast:free) juga menunjukkan performa yang baik namun bisa mengalami 'hallucination' atau\n"
-        "   ketidaktepatan minor tergantung pada konteks prompt.\n\n"
-        "3. Kesimpulan: Sistem Hybrid adalah solusi terbaik. Forward Chaining digunakan sebagai engine utama untuk penentuan\n"
-        "   jurusan yang cepat dan pasti, sedangkan LLM digunakan sebagai fitur pendukung (On-Demand) untuk memberikan\n"
-        "   penjelasan naratif yang lebih kaya dan personal."
-    )
+    dist_labels = ['Tipe RIASEC', 'Jumlah Jurusan', 'Persentase']
     
-    ax2.text(0.5, 0.5, analysis_text, ha='center', va='center', fontsize=12, wrap=True, 
-             bbox=dict(boxstyle="round,pad=1", fc="#E8F0FE", ec="#4285F4"))
+    # Prepare data
+    riasec_names = {
+        'R': 'Realistic', 'I': 'Investigative', 'A': 'Artistic',
+        'S': 'Social', 'E': 'Enterprising', 'C': 'Conventional'
+    }
+    
+    dist_data = []
+    total = results['TotalMajors']
+    
+    # Order: R, I, A, S, E, C
+    for code in ['R', 'I', 'A', 'S', 'E', 'C']:
+        count = results['Distribution'].get(code, 0)
+        percentage = (count / total) * 100 if total > 0 else 0
+        label = f"{code} - {riasec_names[code]}"
+        dist_data.append([label, count, f"{percentage:.1f}%"])
+    
+    table2 = ax2.table(cellText=dist_data, colLabels=dist_labels, loc='center', cellLoc='center')
+    table2.scale(1, 2)
+    table2.auto_set_font_size(False)
+    table2.set_fontsize(11)
+    
+    # Styling Table 2
+    for (row, col), cell in table2.get_celld().items():
+        if row == 0:
+            cell.set_text_props(weight='bold', color='white')
+            cell.set_facecolor('#2C241B')
+        else:
+            cell.set_facecolor('#FAFAF8')
 
     plt.tight_layout()
     plt.savefig('tabel_perbandingan_model.png')

@@ -228,9 +228,11 @@ def get_llm_recommendation(student_scores):
     
     client = Groq(api_key=api_key)
 
+    model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+
     try:
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile", # Switched to a supported model
+            model=model_name, # Switched to a supported model
             messages=[
               {
                 "role": "user",
