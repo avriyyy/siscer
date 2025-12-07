@@ -1,0 +1,35 @@
+
+--- VALIDASI KUNCI JAWABAN (BACKWARD vs FORWARD CHAINING) ---
+
+TARGET JURUSAN            | TOP REKOMENDASI           | SKOR MATCH | STATUS
+--------------------------------------------------------------------------------
+AGRIBISNIS                | AGRIBISNIS                | 9.95       | ✅ PASS
+TEKNOLOGI PANGAN          | TEKNOLOGI PANGAN          | 9.95       | ✅ PASS
+BIOLOGI                   | BIOLOGI                   | 9.91       | ✅ PASS
+EKONOMI PEMBANGUNAN       | EKONOMI PEMBANGUNAN       | 9.96       | ✅ PASS
+MANAJEMEN                 | MANAJEMEN                 | 9.94       | ✅ PASS
+AKUNTANSI                 | AKUNTANSI                 | 9.92       | ✅ PASS
+HUKUM                     | HUKUM                     | 9.95       | ✅ PASS
+ADMINISTRASI PUBLIK       | ADMINISTRASI PUBLIK       | 9.97       | ✅ PASS
+ILMU KOMUNIKASI           | ILMU KOMUNIKASI           | 9.95       | ✅ PASS
+HUBUNGAN INTERNASIONAL    | HUBUNGAN INTERNASIONAL    | 9.96       | ✅ PASS
+PENDIDIKAN DOKTER         | PENDIDIKAN DOKTER         | 9.98       | ✅ PASS
+TEKNIK ELEKTRO            | TEKNIK ELEKTRO            | 9.95       | ✅ PASS
+TEKNIK SIPIL              | TEKNIK SIPIL              | 9.94       | ✅ PASS
+INFORMATIKA               | INFORMATIKA               | 9.94       | ✅ PASS
+TEKNIK INDUSTRI           | TEKNIK INDUSTRI           | 9.99       | ✅ PASS
+TEKNIK MESIN              | TEKNIK MESIN              | 9.92       | ✅ PASS
+KESEHATAN MASYARAKAT      | KESEHATAN MASYARAKAT      | 9.97       | ✅ PASS
+KEPERAWATAN               | KEPERAWATAN               | 9.96       | ✅ PASS
+FARMASI                   | FARMASI                   | 9.95       | ✅ PASS
+ILMU GIZI                 | ILMU GIZI                 | 9.95       | ✅ PASS
+SASTRA INGGRIS            | SASTRA INGGRIS            | 9.94       | ✅ PASS
+SASTRA INDONESIA          | SASTRA INGGRIS            | 9.94       | ⚠️ TOP 3 (Rank 2)
+KIMIA                     | KIMIA                     | 9.92       | ✅ PASS
+MATEMATIKA                | MATEMATIKA                | 9.98       | ✅ PASS
+STATISTIKA                | STATISTIKA                | 9.98       | ✅ PASS
+TEKNIK KOMPUTER           | TEKNIK KOMPUTER           | 9.98       | ✅ PASS
+--------------------------------------------------------------------------------
+Total Validasi: 25/26 (96.2%)
+
+KESIMPULAN: Terdapat beberapa ketidakcocokan. Cek logika rule atau threshold similarity.

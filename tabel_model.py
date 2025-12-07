@@ -2,7 +2,8 @@ import matplotlib.pyplot as plt
 import time
 import os
 from dotenv import load_dotenv
-from app import KnowledgeBase, ForwardChainingEngine, get_llm_recommendation
+from riasec_engine import KnowledgeBase, ForwardChainingEngine
+from app import get_llm_recommendation
 
 load_dotenv()
 

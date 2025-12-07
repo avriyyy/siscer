@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 from dotenv import load_dotenv
-from app import ForwardChainingEngine, KnowledgeBase, get_llm_recommendation
+from riasec_engine import ForwardChainingEngine, KnowledgeBase
+from app import get_llm_recommendation
 
 load_dotenv()
 

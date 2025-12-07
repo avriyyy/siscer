@@ -1,0 +1,27 @@
+Jurusan,RIASEC_Code,R,I,A,S,E,C,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30
+AGRIBISNIS,ERS,6,4,2,6,10,4,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak
+TEKNOLOGI PANGAN,ICR,6,10,2,2,4,6,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak
+BIOLOGI,ISR,4,10,2,4,2,4,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak
+EKONOMI PEMBANGUNAN,SIE,2,8,2,8,6,4,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak
+MANAJEMEN,ESC,2,4,4,8,10,6,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak
+AKUNTANSI,CEI,2,4,2,4,8,10,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Ya,Ya,Ya
+HUKUM,ECI,2,6,4,6,10,8,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak
+ADMINISTRASI PUBLIK,CSE,2,4,2,8,6,10,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya
+ILMU KOMUNIKASI,ESA,2,4,8,10,10,4,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak
+HUBUNGAN INTERNASIONAL,ESI,2,6,6,8,10,4,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak
+PENDIDIKAN DOKTER,ISC,4,10,2,8,4,6,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak
+TEKNIK ELEKTRO,RIC,10,10,2,2,4,6,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak
+TEKNIK SIPIL,RIC,10,8,2,2,4,8,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak
+INFORMATIKA,ICR,4,10,2,2,4,10,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya
+TEKNIK INDUSTRI,ECR,6,6,2,4,10,8,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak
+TEKNIK MESIN,RIC,10,8,2,2,4,6,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak
+KESEHATAN MASYARAKAT,SEI,2,6,4,10,8,6,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Ya,Tidak,Tidak
+KEPERAWATAN,SIC,4,6,2,10,4,6,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak
+FARMASI,ICS,4,10,2,6,2,8,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak
+ILMU GIZI,ISC,4,8,4,8,4,6,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak
+SASTRA INGGRIS,ASI,2,6,10,8,4,4,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak
+SASTRA INDONESIA,ASI,2,6,10,8,4,4,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak
+KIMIA,ICR,4,10,2,2,2,6,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Tidak,Tidak
+MATEMATIKA,ICE,2,10,2,2,4,8,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak
+STATISTIKA,ICE,2,10,2,2,4,10,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Ya
+TEKNIK KOMPUTER,IRC,8,10,2,2,4,8,Ya,Ya,Ya,Ya,Tidak,Ya,Ya,Ya,Ya,Ya,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Tidak,Tidak,Tidak,Tidak,Ya,Ya,Tidak,Tidak,Tidak,Ya,Ya,Ya,Ya,Tidak

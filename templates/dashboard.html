@@ -39,6 +39,14 @@
     </div>
 </div>
 
+<div class="chart-section" style="margin-top: 3rem;">
+    <h2>TREN POPULASI GLOBAL (REFERENSI)</h2>
+    <p style="text-align: center; margin-bottom: 1rem; color: #666;">Berdasarkan analisis data 145,000+ responden (OpenPsychometrics)</p>
+    <div style="position: relative; height: 300px; width: 100%;">
+        <canvas id="globalChart"></canvas>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script id="riasec-data" type="application/json">
     {{ chart_data | tojson }}
@@ -122,6 +130,45 @@
                         color: '#2C241B',
                         width: 2
                     }
+                }
+            }
+        }
+    });
+
+    // Global Population Chart
+    const ctxGlobal = document.getElementById('globalChart').getContext('2d');
+    new Chart(ctxGlobal, {
+        type: 'doughnut',
+        data: {
+            labels: ['REALISTIC', 'INVESTIGATIVE', 'ARTISTIC', 'SOCIAL', 'ENTERPRISING', 'CONVENTIONAL'],
+            datasets: [{
+                data: [5.16, 28.17, 19.10, 32.72, 6.77, 8.09],
+                backgroundColor: [
+                    '#8B7355', // R
+                    '#7C9885', // I
+                    '#D89D6A', // A
+                    '#E0DDCF', // S
+                    '#2C241B', // E
+                    '#A3B18A'  // C
+                ],
+                borderColor: '#2C241B',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        font: { family: 'Space Grotesk', size: 12 },
+                        color: '#2C241B'
+                    }
+                },
+                title: {
+                    display: false,
+                    text: 'Distribusi Populasi Global (%)'
                 }
             }
         }
