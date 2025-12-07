@@ -102,6 +102,7 @@ Berikut adalah grafik perbandingan performa yang dihasilkan dari skrip pengujian
 
     ```
     GROQ_API_KEY=gsk_your_key_here
+    GROQ_MODEL=llama-3.3-70b-versatile
     ```
 
 4.  **Jalankan Aplikasi**
