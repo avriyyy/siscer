@@ -1,0 +1,25 @@
+graph TD
+    %% Generic Flow
+    Start([Start]) --> Input[User Answers Questions]
+    Input --> Process
+    
+    subgraph Process [Forward Chaining Logic]
+        direction TB
+        CalcScores[Calculate RIASEC Scores]
+        CalcScores -->|Sum Points based on Rules| UserProfile[User Profile Generated]
+        UserProfile --> Match[Compare with Database]
+        Match -->|Cosine Similarity| Rank[Rank Majors by Fit]
+    end
+
+    Process --> Output[Top 3 Recommendations]
+    Output --> End([End])
+
+    %% Details
+    Process -.->|Reference| KB[(Knowledge Base)]
+    
+    %% Styling
+    classDef plain fill:#fff,stroke:#333,stroke-width:1px;
+    classDef highlight fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    
+    class CalcScores,UserProfile,Match,Rank highlight;
+    class Start,End,Input,Output plain;

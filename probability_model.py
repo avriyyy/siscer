@@ -9,10 +9,6 @@ from app import KnowledgeBase, ForwardChainingEngine
 load_dotenv()
 
 def get_llm_probabilities(student_scores, majors_list):
-    """
-    Asks LLM to rate the probability/suitability of EACH major for the student.
-    Returns a dictionary: {major_name: score_0_to_10}
-    """
     api_key = os.getenv("GROQ_API_KEY")
     
     scores_text = ", ".join([f"{k}: {v}" for k, v in student_scores.items()])
@@ -60,9 +56,8 @@ def get_llm_probabilities(student_scores, majors_list):
         )
         
         content = completion.choices[0].message.content
-        print(f"DEBUG: Raw LLM Content:\n{content[:500]}...") # Print first 500 chars
+        print(f"DEBUG: Raw LLM Content:\n{content[:500]}...") 
 
-        # Parse JSON
         if "```json" in content:
             content = content.split("```json")[1].split("```")[0].strip()
         elif "```" in content:
@@ -76,31 +71,25 @@ def get_llm_probabilities(student_scores, majors_list):
         return {}
 
 def main():
-    # 1. Setup Data
     kb = KnowledgeBase()
     engine = ForwardChainingEngine(kb)
     
-    # Define a Test Student Profile (e.g., High Realistic & Investigative)
     test_student_scores = {'R': 9, 'I': 8, 'A': 3, 'S': 2, 'E': 4, 'C': 5}
     print(f"Test Student Profile: {test_student_scores}")
     
     majors_names = list(kb.majors.keys())
     
-    # 2. Calculate Forward Chaining Scores
     fc_scores = {}
     print("Calculating Forward Chaining scores...")
     for major in majors_names:
         profile = kb.majors[major]
-        # Use the internal similarity method
         score = engine._calculate_similarity(test_student_scores, profile)
         fc_scores[major] = score
 
-    # 3. Calculate LLM Scores
     llm_scores_map = get_llm_probabilities(test_student_scores, majors_names)
     print(f"DEBUG: LLM Response Keys: {list(llm_scores_map.keys())}")
     print(f"DEBUG: Expected Majors: {majors_names}")
     
-    # Align LLM scores with the majors list (handle missing keys if any)
     llm_scores = []
     fc_scores_list = []
     
@@ -108,14 +97,12 @@ def main():
         fc_scores_list.append(fc_scores.get(major, 0))
         val = llm_scores_map.get(major, 0)
         if val == 0:
-             # Try to find a partial match or case-insensitive match
              for k, v in llm_scores_map.items():
                  if major.lower() in k.lower() or k.lower() in major.lower():
                      val = v
                      break
         llm_scores.append(val)
 
-    # 4. Visualization
     x = np.arange(len(majors_names))
     width = 0.35
     
@@ -134,7 +121,6 @@ def main():
     plt.tight_layout()
     plt.savefig('probability_comparison.png')
     print("\nGrafik telah disimpan sebagai 'probability_comparison.png'")
-    # plt.show()
 
 if __name__ == "__main__":
     main()

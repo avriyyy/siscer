@@ -5,14 +5,14 @@
 {% block content %}
 <style>
     .quiz-container {
-        max-width: 1000px; /* Wider to accommodate sidebar */
+        max-width: 1000px; 
         margin: 0 auto;
         padding: 2rem;
     }
     
     .quiz-layout-grid {
         display: grid;
-        grid-template-columns: 300px 1fr; /* Sidebar | Content */
+        grid-template-columns: 300px 1fr; 
         gap: 2rem;
         align-items: start;
     }
@@ -28,16 +28,16 @@
     }
 
     .questions-main {
-        min-width: 0; /* Prevent overflow */
+        min-width: 0; 
     }
 
     .options-grid {
-        display: flex; /* Side-by-side options */
+        display: flex; 
         gap: 1rem;
         margin-top: 1rem;
     }
     .option-label {
-        flex: 1; /* Equal width */
+        flex: 1; 
         text-align: center;
         padding: 1rem;
         border: 2px solid #ddd;
@@ -53,7 +53,6 @@
         margin-right: 0.5rem;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
         .quiz-layout-grid {
             grid-template-columns: 1fr;
@@ -75,7 +74,6 @@
     <form method="POST" action="{{ url_for('rekomendasi') }}" id="quiz-form">
         <div class="quiz-layout-grid">
             
-            <!-- LEFT SIDEBAR: Profile Info -->
             <aside class="info-sidebar">
                 <h2 id="category-title" style="font-size: 1.5rem; margin-bottom: 1rem; color: #2C241B;">TES PROFIL RIASEC</h2>
                 <div style="width: 50px; height: 4px; background: #2C241B; margin-bottom: 1rem;"></div>
@@ -91,7 +89,6 @@
                 </div>
             </aside>
 
-            <!-- RIGHT CONTENT: Questions -->
             <main class="questions-main">
                 {% for category, items in questions_grouped %}
                 <div class="quiz-section" data-category="{{ category }}" id="section-{{ loop.index0 }}" style="display: none;">
@@ -121,7 +118,6 @@
                 </div>
                 {% endfor %}
 
-                <!-- Navigation Buttons -->
                 <div class="navigation-buttons" style="display: flex; justify-content: space-between; margin-top: 2rem;">
                     <button type="button" id="prev-btn" class="btn btn-secondary" style="display: none;">
                         <i class="fas fa-arrow-left"></i> Sebelumnya
@@ -152,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentStep = 0;
     const totalSteps = sections.length;
 
-    // Descriptions for each profile
     const profileDescriptions = {
         'Realistic': "Tipe ini menyukai aktivitas fisik, bekerja dengan benda, mesin, peralatan, tanaman, atau hewan. Mereka lebih suka bekerja di luar ruangan.",
         'Investigative': "Tipe ini suka mengamati, belajar, menyelidiki, menganalisis, mengevaluasi, atau memecahkan masalah.",
@@ -163,23 +158,18 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     function updateUI() {
-        // Hide all sections
         sections.forEach(section => section.style.display = 'none');
         
-        // Show current section
         const currentSection = sections[currentStep];
         currentSection.style.display = 'block';
         
-        // Update Sidebar Info
         const category = currentSection.getAttribute('data-category');
         heroTitle.textContent = `Profil: ${category}`;
         heroDesc.textContent = profileDescriptions[category] || "Jawab pertanyaan berikut.";
         
-        // Update Progress
         const progress = ((currentStep + 1) / totalSteps) * 100;
         progressBar.style.width = `${progress}%`;
 
-        // Button Visibility
         prevBtn.style.display = currentStep === 0 ? 'none' : 'inline-block';
         
         if (currentStep === totalSteps - 1) {
@@ -190,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.style.display = 'none';
         }
         
-        // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -226,17 +215,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initialize
     updateUI();
 
-    // Option click handler for better UX
     document.querySelectorAll('.option-label').forEach(label => {
         label.addEventListener('click', function(e) {
             if (e.target.tagName !== 'INPUT') {
                 const radio = this.querySelector('input[type="radio"]');
                 if (radio) {
                     radio.checked = true;
-                    // Trigger change event manually if needed
                 }
             }
         });

@@ -1,0 +1,76 @@
+graph TD
+    %% Actors and System Boundaries
+    UserNode((User))
+    Browser[Web Browser]
+    Server[Flask Server / App.py]
+    Engine[Forward Chaining Engine]
+    KB[(Knowledge Base / CSVs)]
+    LLM[AI / LLM Service]
+
+    %% Flow 1: Initialization
+    UserNode -->|Visits Website| Browser
+    Browser -->|GET Request| Server
+    Server -->|Load Questions and Rules| KB
+    KB -->|Return Data| Server
+    Server -->|Render Dashboard| Browser
+
+    %% Flow 2: Taking Quiz
+    UserNode -->|Clicks Mulai Tes| Browser
+    Browser -->|GET /quiz| Server
+    Server -->|Render Quiz Page| Browser
+    UserNode -->|Answers 30 Questions| Browser
+    Browser -->|POST /rekomendasi| Server
+
+    %% Flow 3: Logic and Decision Making
+    subgraph BackendLogic [Decision Making Process Backend]
+        Server -->|Pass Form Data| Engine
+        
+        %% Forward Chaining Logic
+        Engine -->|Initialize Scores| ZeroScores["Scores: R=0, I=0, A=0, S=0, E=0, C=0"]
+        Engine -->|Iterate Questions| CheckAnswers{Check Response}
+        
+        CheckAnswers -->|Answer = Yes| FireRule[Fire Rule - Condition matches]
+        FireRule -->|Add Points| UpdateScore[Update RIASEC Score]
+        CheckAnswers -->|Answer = No| NextQ[Next Question]
+        
+        UpdateScore --> NextQ
+        NextQ -->|All Questions Done?| CalcSim[Calculate Similarity]
+        
+        %% Recommendation Logic
+        CalcSim -->|Load Major Profiles| KB
+        CalcSim -->|Vector Comparison| CosineSim[Cosine Similarity Calculation]
+        CosineSim -->|User Vector vs. Major Vector| ScoreResult["Match Score (0-10)"]
+        
+        ScoreResult -->|Sort All Majors| Ranking[Rank by Score Descending]
+        Ranking -->|Select Top 3| Top3[Get Top 3 Majors]
+    end
+
+    %% Flow 4: Result
+    Top3 -->|Return Results| Server
+    Server -->|Render Result Page| Browser
+    Browser -->|Show Recommendations| UserNode
+
+    %% Flow 5: AI Analysis (Optional)
+    UserNode -->|Clicks Analisis AI| Browser
+    Browser -->|POST /analyze_ai| Server
+    
+    subgraph AIDecision [AI Decision Process]
+        Server -->|Construct Prompt| PromptData[User Scores and Top Majors]
+        PromptData -->|API Request| LLM
+        LLM -->|Analyze Profiles| Reasoning[Generate Reasoning and Alt Recs]
+        Reasoning -->|JSON Response| Server
+    end
+    
+    Server -->|Return JSON| Browser
+    Browser -->|Update UI with AI Analysis| UserNode
+
+    %% Styling
+    classDef actorStyle fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef systemStyle fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef dataStyle fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+    classDef logicStyle fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+    
+    class UserNode actorStyle;
+    class Server,Browser,Engine,LLM systemStyle;
+    class KB,PromptData,ZeroScores dataStyle;
+    class CheckAnswers,CosineSim,Ranking,FireRule logicStyle;

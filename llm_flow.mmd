@@ -1,0 +1,29 @@
+graph TD
+    %% Nodes
+    User((User))
+    Server[Flask Server]
+    LLM[LLM Service / Groq]
+    Browser[Web Browser]
+
+    %% Flow
+    User -->|Clicks 'Analisis AI'| Browser
+    Browser -->|POST /analyze_ai| Server
+    
+    subgraph Backend_Process [Backend Processing]
+        Server -->|Prepare Prompt| Prompt[Prompt: User Scores + Major Data]
+        Prompt -->|API Request| LLM
+        LLM -->|Generate Advice| Response[JSON Response: Analysis + Recs]
+        Response -->|Return Data| Server
+    end
+
+    Server -->|Send JSON| Browser
+    Browser -->|Update UI| User
+
+    %% Styling
+    classDef actorStyle fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef systemStyle fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+    classDef dataStyle fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+    
+    class User actorStyle;
+    class Server,Browser,LLM systemStyle;
+    class Prompt,Response dataStyle;

@@ -3,25 +3,11 @@ import os
 from riasec_engine import KnowledgeBase, ForwardChainingEngine
 
 def validate_answer_keys():
-    """
-    Validates the generated answer keys against the Forward Chaining Engine.
-    
-    Process:
-    1. Load answer_keys.csv.
-    2. For each major (row):
-       a. Extract the answers (Q1-Q30).
-       b. Feed these answers into the ForwardChainingEngine.
-       c. Run the engine to get scores and recommendations.
-    3. Compare the Top 1 Recommendation with the Target Major.
-    4. Report the results.
-    """
     print("\n--- VALIDASI KUNCI JAWABAN (BACKWARD vs FORWARD CHAINING) ---\n")
     
-    # Initialize Engine
     kb = KnowledgeBase()
     engine = ForwardChainingEngine(kb)
     
-    # Load Answer Keys
     keys_path = 'answer_keys.csv'
     if not os.path.exists(keys_path):
         print(f"Error: {keys_path} not found.")
@@ -41,7 +27,6 @@ def validate_answer_keys():
                 total_count += 1
                 target_major = row['Jurusan']
                 
-                # 1. Prepare Facts from CSV Row
                 engine.facts = set()
                 for i in range(1, 31):
                     qid = f"Q{i}"
@@ -49,11 +34,9 @@ def validate_answer_keys():
                     if answer == 'Ya':
                         engine.add_fact(f"{qid}Y")
                 
-                # 2. Run Forward Chaining
                 engine.run()
                 recommendations = engine.recommend_majors()
                 
-                # 3. Check Result
                 if not recommendations:
                     f.write(f"{target_major:<25} | {'No Recs':<25} | {'0':<10} | ❌ ERROR\n")
                     continue
@@ -62,12 +45,10 @@ def validate_answer_keys():
                 top_major_name = top_rec['major']
                 match_score = top_rec['matching_score']
                 
-                # Check if Target is in Top 3 (Relaxed Check) or Top 1 (Strict Check)
                 if top_major_name == target_major:
                     status = "✅ PASS"
                     success_count += 1
                 else:
-                    # Check if it's in top 3
                     top_3_names = [r['major'] for r in recommendations[:3]]
                     if target_major in top_3_names:
                          status = f"⚠️ TOP 3 (Rank {top_3_names.index(target_major) + 1})"

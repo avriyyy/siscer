@@ -42,7 +42,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('quizForm').addEventListener('submit', function(e) {
-                // Check if all questions are answered
                 const questions = {{ questions | length }};
                 let allAnswered = true;
 

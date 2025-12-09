@@ -10,20 +10,13 @@ from riasec_engine import KnowledgeBase, ForwardChainingEngine
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'siscer_secret_key_2024' # Required for session
+app.secret_key = 'siscer_secret_key_2024'
 
-# Initialize Knowledge Base
 kb = KnowledgeBase()
 
-# ==========================================
-# LLM HELPER
-# ==========================================
-
 def get_llm_recommendation(student_scores):
-    # API Key provided by user
     api_key = os.getenv("GROQ_API_KEY")
     
-    # Load full knowledge base from CSV to include Faculty and Scores
     base_dir = os.path.dirname(os.path.abspath(__file__))
     knowledge_base_text = ""
     with open(os.path.join(base_dir, 'jurusan.csv'), 'r', encoding='utf-8') as f:
@@ -31,7 +24,6 @@ def get_llm_recommendation(student_scores):
         for row in reader:
             knowledge_base_text += f"- Major: {row['nama_jurusan']}, Faculty: {row['fakultas']}, RIASEC Profile: R={row['R']}, I={row['I']}, A={row['A']}, S={row['S']}, E={row['E']}, C={row['C']}\n"
 
-    # Format scores for prompt
     scores_text = ", ".join([f"{k}: {v}" for k, v in student_scores.items()])
     
     prompt = f"""
@@ -48,17 +40,18 @@ def get_llm_recommendation(student_scores):
     2. Select exactly 3 majors that are the best match.
     3. You MUST ONLY select majors from the KNOWLEDGE BASE list above.
     4. Provide a reasoning for each recommendation based on the score comparison.
+    5. IMPORTANT: PROVIDE THE "reasoning" AND "analysis" IN BAHASA INDONESIA.
     
     Please provide the response in the following JSON format:
     {{
         "recommendations": [
             {{
                 "major": "Exact Major Name from Knowledge Base",
-                "reasoning": "Explanation referencing the student's scores vs the major's profile."
+                "reasoning": "Explanation in Bahasa Indonesia referencing the student's scores vs the major's profile."
             }},
             ...
         ],
-        "analysis": "A brief overall analysis of the student's profile."
+        "analysis": "A brief overall analysis of the student's profile in Bahasa Indonesia."
     }}
     """
     
@@ -68,7 +61,7 @@ def get_llm_recommendation(student_scores):
 
     try:
         completion = client.chat.completions.create(
-            model=model_name, # Switched to a supported model
+            model=model_name,
             messages=[
               {
                 "role": "user",
@@ -79,12 +72,11 @@ def get_llm_recommendation(student_scores):
             max_completion_tokens=4096,
             top_p=0.95,
             stop=None,
-            stream=False # We need the full response for JSON parsing, not stream
+            stream=False
         )
         
         content = completion.choices[0].message.content
         
-        # Try to parse JSON from content
         if "```json" in content:
             content = content.split("```json")[1].split("```")[0].strip()
         elif "```" in content:
@@ -96,19 +88,12 @@ def get_llm_recommendation(student_scores):
         print(f"LLM Exception: {e}")
         return None
 
-# ==========================================
-# FLASK ROUTES
-# ==========================================
-
 @app.route('/')
 def index():
-    # Reload KB to ensure fresh data
     kb.load_data()
     
-    # Calculate distribution for dashboard
     riasec_counts = {'R': 0, 'I': 0, 'A': 0, 'S': 0, 'E': 0, 'C': 0}
     for major, profile in kb.majors.items():
-        # Find dominant type
         profile_only = {k: v for k, v in profile.items() if k in riasec_counts}
         dominant = max(profile_only, key=profile_only.get)
         riasec_counts[dominant] += 1
@@ -117,7 +102,6 @@ def index():
 
 @app.route('/quiz')
 def quiz():
-    # Group questions by category in RIASEC order
     ordered_categories = ['Realistic', 'Investigative', 'Artistic', 'Social', 'Enterprising', 'Conventional']
     grouped_questions = {cat: [] for cat in ordered_categories}
     
@@ -125,22 +109,18 @@ def quiz():
         if q['kategori'] in grouped_questions:
             grouped_questions[q['kategori']].append(q)
             
-    # Convert to list of tuples for easy iteration in template
     questions_grouped = [(cat, grouped_questions[cat]) for cat in ordered_categories]
     
     return render_template('quiz.html', questions_grouped=questions_grouped)
 
 @app.route('/rekomendasi', methods=['POST'])
 def rekomendasi():
-    # 1. Collect Facts (User Answers)
     engine = ForwardChainingEngine(kb)
     
-    # Iterate through all questions to get answers
     for q in kb.questions:
         qid = q['id']
         answer_val = request.form.get(qid)
         if answer_val:
-            # Fact format: Q1Y (Question ID + Answer Value)
             fact = f"{qid}{answer_val}"
             engine.add_fact(fact)
         else:
@@ -148,17 +128,13 @@ def rekomendasi():
                                  questions=kb.questions, 
                                  error="Mohon jawab semua pertanyaan.")
 
-    # 2. Run Inference (Forward Chaining)
     student_scores = engine.run()
     
-    # Save scores to session for AI analysis
     session['student_scores'] = student_scores
     
-    # 3. Get Recommendations
     results = engine.recommend_majors()
     top_3 = results[:3]
     
-    # Determine Student Profile Code
     sorted_scores = sorted(student_scores.items(), key=lambda x: x[1], reverse=True)
     student_profile_code = ''.join([x[0] for x in sorted_scores[:3]])
 

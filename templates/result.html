@@ -60,9 +60,9 @@
 </div>
 
 <div class="result-header" style="margin-top: 3rem; background: #E8F0FE; border-color: #4285F4;">
-    <h2 style="color: #1967D2; margin-bottom: 1rem;">REKOMENDASI AI ASSISTANT (LLM)</h2>
+    <h2 style="color: #1967D2; margin-bottom: 1rem;">LIHAT REKOMENDASI OLEH LLM</h2>
     <p style="margin-bottom: 1.5rem;">
-        Dapatkan analisis mendalam dan rekomendasi tambahan dari AI Assistant (DeepSeek) berdasarkan profil RIASEC kamu.
+        Model: llama-3.3-70b-versatile
     </p>
     
     <div id="ai-section-content" style="text-align: center;">
@@ -82,7 +82,7 @@
         </div>
 
         <div class="recommendation-list" id="ai-recommendations-list" style="max-width: 900px; margin: 0 auto;">
-            <!-- AI Recommendations will be injected here -->
+
         </div>
     </div>
 </div>
@@ -114,10 +114,10 @@ document.getElementById('btn-analyze-ai').addEventListener('click', function() {
             return;
         }
 
-        // Render Analysis
+
         analysisText.textContent = data.analysis;
 
-        // Render Recommendations
+
         recList.innerHTML = '';
         data.recommendations.forEach(item => {
             const card = document.createElement('div');
@@ -126,7 +126,6 @@ document.getElementById('btn-analyze-ai').addEventListener('click', function() {
             card.style.boxShadow = '6px 6px 0 #4285F4';
             
             card.innerHTML = `
-                <div class="major-rank" style="border-color: #4285F4; color: #4285F4;">AI</div>
                 <div class="major-content">
                     <h3 style="background: #4285F4; border-color: #1967D2;">${item.major}</h3>
                     <p>${item.reasoning}</p>
