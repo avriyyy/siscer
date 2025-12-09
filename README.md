@@ -87,7 +87,7 @@ Berikut adalah grafik perbandingan performa yang dihasilkan dari skrip pengujian
 1.  **Clone Repository**
 
     ```bash
-    git clone https://github.com/username/siscer.git
+    git clone https://github.com/avriyyy/siscer.git
     cd siscer
     ```
 
@@ -102,6 +102,7 @@ Berikut adalah grafik perbandingan performa yang dihasilkan dari skrip pengujian
 
     ```
     GROQ_API_KEY=gsk_your_key_here
+    GROQ_MODEL=llama-3.3-70b-versatile
     ```
 
 4.  **Jalankan Aplikasi**
