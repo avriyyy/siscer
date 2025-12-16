@@ -76,10 +76,7 @@
     </div>
 
     <div id="ai-results" style="display: none; margin-top: 2rem;">
-        <div style="background: white; padding: 1.5rem; border-radius: 8px; border: 1px solid #4285F4; text-align: left; margin-bottom: 2rem;">
-            <h4 style="color: #1967D2; margin-bottom: 0.5rem;">ANALISIS PROFIL</h4>
-            <p id="ai-analysis-text"></p>
-        </div>
+
 
         <div class="recommendation-list" id="ai-recommendations-list" style="max-width: 900px; margin: 0 auto;">
 
@@ -92,7 +89,6 @@ document.getElementById('btn-analyze-ai').addEventListener('click', function() {
     const btn = this;
     const loading = document.getElementById('ai-loading');
     const resultsDiv = document.getElementById('ai-results');
-    const analysisText = document.getElementById('ai-analysis-text');
     const recList = document.getElementById('ai-recommendations-list');
 
     btn.style.display = 'none';
@@ -115,20 +111,49 @@ document.getElementById('btn-analyze-ai').addEventListener('click', function() {
         }
 
 
-        analysisText.textContent = data.analysis;
-
 
         recList.innerHTML = '';
-        data.recommendations.forEach(item => {
+        data.recommendations.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'major-card';
             card.style.borderColor = '#4285F4';
             card.style.boxShadow = '6px 6px 0 #4285F4';
             
+            // Generate rows for the table
+            let tableRows = '';
+            const types = ['R', 'I', 'A', 'S', 'E', 'C'];
+            types.forEach(type => {
+                tableRows += `
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 0.5rem; font-weight: 700;">${type}</td>
+                        <td style="text-align: center; padding: 0.5rem;">${data.student_scores[type]}</td>
+                        <td style="text-align: center; padding: 0.5rem;">${item.profil_detail[type]}</td>
+                    </tr>
+                `;
+            });
+            
             card.innerHTML = `
+                <div class="major-rank" style="border-color: #4285F4; color: #4285F4;">#${index + 1}</div>
                 <div class="major-content">
                     <h3 style="background: #4285F4; border-color: #1967D2;">${item.major}</h3>
-                    <p>${item.reasoning}</p>
+                    <div class="match-score" style="background: #1967D2; border-color: #4285F4; box-shadow: 3px 3px 0 #4285F4;">
+                        <i class="fas fa-star"></i> KECOCOKAN : ${Number(item.match_score).toFixed(2)}
+                    </div>
+                    <p style="margin-bottom: 1rem; font-weight: 700;">
+                        KODE: <span style="background: #2C241B; color: white; padding: 2px 6px;">${item.riasec_code}</span>
+                    </p>
+                    <!-- Reasoning moved to detail section -->
+                    
+                    <button class="btn btn-secondary btn-sm" onclick="toggleDetails('ai-details-${index}')" style="margin-top: 1rem; font-size: 0.8rem; padding: 0.5rem 1rem; background: #4285F4; border-color: #1967D2;">
+                        <i class="fas fa-robot"></i> LIHAT ALASAN AI
+                    </button>
+
+                    <div id="ai-details-${index}" style="display: none; margin-top: 1.5rem; text-align: left; background: #FAFAF8; padding: 1rem; border: 2px solid #4285F4;">
+                        <h4 style="font-size: 1rem; margin-bottom: 0.5rem; color: #1967D2;">Reasoning AI</h4>
+                        <p style="font-size: 0.85rem; margin-bottom: 1rem;">
+                            ${item.reasoning}
+                        </p>
+                    </div>
                 </div>
             `;
             recList.appendChild(card);

@@ -3,8 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 from dotenv import load_dotenv
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from riasec_engine import ForwardChainingEngine, KnowledgeBase
-from app import get_llm_recommendation
+from riasec_engine import get_llm_recommendation
 
 load_dotenv()
 
@@ -117,7 +121,7 @@ def test_llm(test_cases):
     return avg_latency, accuracy
 
 def plot_results(fc_metrics, llm_metrics):
-    labels = ['Forward Chaining', 'LLM (AI)']
+    labels = ['Forward Chaining', 'LLM (Llama‑3.3‑70B)']
     latencies = [fc_metrics[0], llm_metrics[0]]
     accuracies = [fc_metrics[1], llm_metrics[1]]
     
@@ -138,8 +142,13 @@ def plot_results(fc_metrics, llm_metrics):
         ax2.text(i, v, f"{v:.1f}%", ha='center', va='bottom')
         
     plt.tight_layout()
-    plt.savefig('model_performance_comparison.png')
-    print("\nGrafik telah disimpan sebagai 'model_performance_comparison.png'")
+    plt.tight_layout()
+    
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(script_dir, 'perbandingan_model.png')
+    plt.savefig(output_path)
+    print(f"\nGrafik telah disimpan sebagai '{output_path}'")
+    print("\nGrafik telah disimpan sebagai 'perbandingan_model.png'")
     plt.show()
 
 if __name__ == "__main__":

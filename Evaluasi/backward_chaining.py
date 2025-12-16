@@ -4,7 +4,8 @@ import os
 
 class BackwardChainingEngine:
     def __init__(self):
-        self.base_dir = os.path.dirname(os.path.abspath(__file__))
+        self.script_dir = os.path.dirname(os.path.abspath(__file__))
+        self.base_dir = os.path.dirname(self.script_dir)
         self.majors = {}
         self.rules = []
         self.questions = {}
@@ -87,17 +88,14 @@ class BackwardChainingEngine:
             
         return answer_keys
 
-    def save_to_json(self, data, filename='answer_keys.json'):
-        with open(filename, 'w', encoding='utf-8') as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
-        print(f"Kunci jawaban berhasil disimpan ke {filename}")
-
     def save_to_csv(self, data, filename='answer_keys.csv'):
         headers = ['Jurusan', 'RIASEC_Code', 'R', 'I', 'A', 'S', 'E', 'C']
         q_ids = sorted(self.questions.keys(), key=lambda x: int(x[1:])) 
         headers.extend(q_ids)
 
-        with open(filename, 'w', newline='', encoding='utf-8') as f:
+        # Save to the same directory as this script (Evaluasi folder)
+        output_path = os.path.join(self.script_dir, filename)
+        with open(output_path, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             writer.writerow(headers)
 
@@ -118,10 +116,9 @@ class BackwardChainingEngine:
                     row.append(answer)
                 
                 writer.writerow(row)
-        print(f"Kunci jawaban berhasil disimpan ke {filename}")
+        print(f"Kunci jawaban berhasil disimpan ke {output_path}")
 
 if __name__ == "__main__":
     engine = BackwardChainingEngine()
     keys = engine.generate_answer_keys()
-    engine.save_to_json(keys)
     engine.save_to_csv(keys)

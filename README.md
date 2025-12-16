@@ -1,116 +1,103 @@
-# Penerapan Metode Forward Chaining pada Sistem Pakar untuk Rekomendasi Jurusan Berdasarkan Minat dan Bakat Siswa
+# Dokumentasi Teknis Sistem Rekomendasi Karir (SISCER)
 
-## Latar Belakang
-
-Sistem ini dibangun untuk memecahkan masalah kebingungan siswa dalam memilih jurusan kuliah. Menggunakan model psikologi **RIASEC** (Holland Code), sistem memetakan minat siswa ke dalam enam tipe kepribadian: _Realistic, Investigative, Artistic, Social, Enterprising,_ dan _Conventional_.
-
-Tujuan utama proyek ini adalah mengimplementasikan metode **Forward Chaining** untuk memberikan rekomendasi yang logis, transparan, dan dapat dijelaskan (explainable), serta membandingkan kinerjanya dengan kecerdasan buatan generatif modern (LLM).
-
-## Arsitektur & Cara Kerja Sistem
-
-Sistem bekerja dengan alur data-driven (berbasis data), ciri khas utama dari Forward Chaining.
-
-1.  **Akuisisi Fakta**: Pengguna menjawab 30 pertanyaan diagnostik. Jawaban "Ya" disimpan sebagai fakta awal di _Working Memory_.
-2.  **Evaluasi Rule**: _Inference Engine_ memindai seluruh aturan yang ada di _Knowledge Base_.
-3.  **Eksekusi Rule (Firing)**: Jika premis aturan cocok dengan fakta (misal: User menjawab Q1 'Ya'), maka konklusi dijalankan (Skor Realistic bertambah).
-4.  **Pencocokan Profil**: Skor akhir pengguna dihitung kemiripannya dengan profil ideal setiap jurusan menggunakan _Cosine Similarity_.
-
-## Forward Chaining
-
-Logika inti sistem tidak menggunakan `if-else` bertingkat yang rumit, melainkan memisahkan antara **Data (Rules)** dan **Logika (Engine)**. Ini membuat sistem mudah dikelola.
-
-File utama: `riasec_engine.py`
-
-### 1. Struktur Aturan (Rule Structure)
-
-Aturan dimuat dari file eksternal (`rules.csv`), bukan hardcode di Python. Ini memungkinkan pakar non-programmer mengubah aturan tanpa menyentuh kode.
-
-```python
-class Rule:
-    """Representasi Aturan Produksi: IF condition THEN action"""
-    def __init__(self, condition, action):
-        self.condition = condition  # Antecedent (Sebab), misal: 'Q1Y'
-        self.action = action        # Consequent (Akibat), misal: {'R': 2}
-```
-
-### 2. Mesin Inferensi (The Engine)
-
-Fungsi `run()` adalah jantung dari Forward Chaining. Ia melakukan iterasi terhadap aturan dan mencocokkannya dengan fakta yang terkumpul.
-
-```python
-def run(self):
-    # Reset skor awal
-    self.scores = {'R': 0, 'I': 0, 'A': 0, 'S': 0, 'E': 0, 'C': 0}
-
-    # Cycle through all rules (Data-Driven Approach)
-    for rule in self.kb.rules:
-        # Cek apakah kondisi aturan ada di dalam fakta yang kita punya
-        if rule.condition in self.facts:
-            # Rule Fired! Jalankan konsekuensinya
-            for category, points in rule.action.items():
-                self.scores[category] += points
-
-    return self.scores
-```
-
-## Analisis Komparatif: Forward Chaining vs LLM
-
-Kami melakukan pengujian _head-to-head_ antara sistem pakar berbasis aturan ini melawan **Llama-3.3-70b-versatile** (via Groq API).
-
-### Visualisasi Hasil
-
-Berikut adalah grafik perbandingan performa yang dihasilkan dari skrip pengujian otomatis:
-
-![Grafik Perbandingan Model](model_performance_comparison.png)
-
-### Tabel Detail Evaluasi
-
-![Tabel Evaluasi](tabel_perbandingan_model.png)
-
-### Temuan Utama
-
-1.  **Kecepatan (Latency)**:
-
-    - **Forward Chaining**: Sangat cepat (~0.0004 detik). Komputasi lokal tanpa overhead jaringan.
-    - **LLM**: Lambat (~1.5 - 3 detik). Bergantung pada koneksi internet dan beban server API.
-
-2.  **Akurasi & Konsistensi**:
-
-    - **Forward Chaining**: Deterministik. Input yang sama **pasti** menghasilkan output yang sama. Akurasi 100% sesuai desain aturan.
-    - **LLM**: Probabilistik. Bisa mengalami halusinasi atau memberikan jawaban berbeda untuk input yang sama (kecuali temperature diset 0).
-
-3.  **Kesimpulan**:
-    Untuk domain tertutup dengan aturan yang jelas seperti tes psikologi RIASEC, **Forward Chaining jauh lebih efisien dan reliable** dibandingkan LLM. LLM lebih cocok digunakan sebagai fitur pendukung (misal: memberikan narasi motivasi) daripada sebagai mesin hitung utama.
-
-## Instalasi & Penggunaan
-
-1.  **Clone Repository**
-
-    ```bash
-    git clone https://github.com/avriyyy/siscer.git
-    cd siscer
-    ```
-
-2.  **Install Library**
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3.  **Setup Environment**
-    Buat file `.env` dan isi API Key Groq (Opsional, hanya untuk fitur AI chat):
-
-    ```
-    GROQ_API_KEY=gsk_your_key_here
-    GROQ_MODEL=llama-3.3-70b-versatile
-    ```
-
-4.  **Jalankan Aplikasi**
-    ```bash
-    python app.py
-    ```
-    Akses di browser: `http://127.0.0.1:5000`
+Dokumen ini menjelaskan struktur kode dan logika backend yang digunakan dalam aplikasi SISCER (Sistem Cerdas Rekomendasi Karir).
 
 ---
 
-_Dibuat untuk memenuhi Tugas Besar Mata Kuliah Sistem Cerdas._
+## 1. Mesin Utama: `riasec_engine.py`
+
+File ini adalah otak dari sistem yang menangani pemrosesan logika Forward Chaining dan integrasi dengan Large Language Model (LLM).
+
+### Kelas & Fungsi Utama
+
+#### `class Rule`
+
+Objek sederhana untuk merepresentasikan aturan logika "JIKA-MAKA".
+
+- **Atribut**:
+  - `condition`: Kode kondisi (misal: jawaban dari pertanyaan tertentu).
+  - `action`: Poin skor yang diberikan ke kategori RIASEC tertentu (R/I/A/S/E/C) jika kondisi terpenuhi.
+
+#### `class KnowledgeBase`
+
+Bertugas mengelola data statis yang dimuat dari file CSV.
+
+- **Fungsi Utama**:
+  - `load_data()`: Memuat semua data penting saat aplikasi dijalankan.
+  - `_load_questions()`: Membaca daftar pertanyaan dari `questions.csv`.
+  - `_load_rules()`: Membaca aturan penilaian dari `rules.csv`.
+  - `_load_majors()`: Membaca profil ideal setiap jurusan dari `jurusan.csv`.
+
+#### `class ForwardChainingEngine`
+
+Mesin inferensi yang menghitung skor profil siswa berdasarkan jawaban mereka.
+
+- **`add_fact(fact)`**: Menerima input jawaban user (fakta baru).
+- **`run()`**: Menjalankan algoritma Forward Chaining. Mencocokkan fakta user dengan `Rule` yang ada di Knowledge Base untuk menghitung skor RIASEC siswa.
+- **`recommend_majors()`**:
+  - Mengambil skor RIASEC siswa (hasil `run()`).
+  - Membandingkannya dengan profil ideal setiap jurusan di Knowledge Base.
+  - Menggunakan metode **Cosine Similarity (`_calculate_similarity`)** untuk menghitung tingkat kecocokan (0-10).
+  - Mengurutkan jurusan dari skor tertinggi ke terendah.
+
+#### `get_llm_recommendation(student_scores)`
+
+Fungsi independen untuk mengakses kecerdasan buatan (Groq/LLM).
+
+- **Input**: Skor RIASEC siswa (Dictionary).
+- **Proses**:
+  - Menyusun prompt engineer yang berisi profil siswa dan Knowledge Base jurusan.
+  - Memberikan instruksi ketat ke LLM untuk menilai **semua jurusan** dengan presisi tinggi (2 desimal).
+  - Meminta LLM untuk memberikan alasan (reasoning) kualitatif dalam Bahasa Indonesia hanya untuk top 3 rekomendasi.
+- **Output**: JSON yang berisi skor match AI dan analisis tekstual.
+
+---
+
+## 2. Aplikasi Web: `app.py`
+
+File ini menggunakan framework **Flask** untuk mengatur antarmuka pengguna (UI) dan alur aplikasi.
+
+### Route (Jalur Aplikasi)
+
+#### 1. Dashboard (`/`)
+
+- **Fungsi**: `index()`
+- **Tujuan**: Menampilkan halaman utama dashboard.
+- **Proses**: Memuat Knowledge Base dan menghitung statistik distribusi kategori RIASEC pada jurusan yang tersedia untuk ditampilkan dalam grafik.
+
+#### 2. Kuis (`/quiz`)
+
+- **Fungsi**: `quiz()`
+- **Tujuan**: Menampilkan halaman kuesioner.
+- **Proses**: Mengelompokkan pertanyaan berdasarkan kategori (Realistic, Investigative, dll) agar tampilan di UI lebih terstruktur dan rapi.
+
+#### 3. Proses Rekomendasi (`/rekomendasi` - POST)
+
+- **Fungsi**: `rekomendasi()`
+- **Tujuan**: Memproses jawaban kuis dan menampilkan hasil Forward Chaining.
+- **Proses**:
+  - Menerima input form dari user.
+  - Menginstansiasi `ForwardChainingEngine` dan memberikan fakta-fakta jawaban user.
+  - Menjalankan mesin (`engine.run()`) untuk dapat skor profil.
+  - Menyimpan skor ke dalam **Session** (agar bisa dipakai oleh fitur AI nanti).
+  - Merender halaman `result.html` dengan hasil perhitungan Cosine Similarity.
+
+#### 4. Analisis AI (`/analyze_ai` - POST)
+
+- **Fungsi**: `analyze_ai()`
+- **Tujuan**: API Endpoint untuk memberikan opini kedua (Second Opinion) dari AI.
+- **Proses**:
+  - Dipanggil via AJAX (JavaScript) dari halaman hasil.
+  - Mengambil skor siswa dari Session.
+  - Memanggil fungsi `get_llm_recommendation()` dari `riasec_engine.py`.
+  - Menggabungkan hasil analisis teks dari AI dengan data detail profil jurusan dari Knowledge Base.
+  - Mengembalikan data JSON ke frontend untuk ditampilkan secara dinamis.
+
+---
+
+## Alur Data Singkat
+
+1. User isi Kuis -> `app.py` terima data.
+2. `app.py` panggil `riasec_engine.ForwardChainingEngine` -> Hitung skor RIASEC.
+3. `engine` hitung Cosine Similarity -> Tampil hasil matematis (Forward Chaining).
+4. (Opsional) User klik "Analisis AI" -> `app.py` panggil `riasec_engine.get_llm_recommendation` -> Tampil hasil analisis LLM.

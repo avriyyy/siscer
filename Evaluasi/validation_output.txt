@@ -32,4 +32,4 @@ TEKNIK KOMPUTER           | TEKNIK KOMPUTER           | 9.98       | ✅ PASS
 --------------------------------------------------------------------------------
 Total Validasi: 25/26 (96.2%)
 
-KESIMPULAN: Terdapat beberapa ketidakcocokan. Cek logika rule atau threshold similarity.
+KESIMPULAN: Terdapat beberapa ketidakcocokan.

@@ -1,5 +1,9 @@
 import csv
 import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from riasec_engine import KnowledgeBase, ForwardChainingEngine
 
 def validate_answer_keys():
@@ -8,7 +12,9 @@ def validate_answer_keys():
     kb = KnowledgeBase()
     engine = ForwardChainingEngine(kb)
     
-    keys_path = 'answer_keys.csv'
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    keys_path = os.path.join(script_dir, 'answer_keys.csv')
+    
     if not os.path.exists(keys_path):
         print(f"Error: {keys_path} not found.")
         return
@@ -16,7 +22,8 @@ def validate_answer_keys():
     success_count = 0
     total_count = 0
     
-    with open('validation_output.txt', 'w', encoding='utf-8') as f:
+    output_path = os.path.join(script_dir, 'validation_output.txt')
+    with open(output_path, 'w', encoding='utf-8') as f:
         f.write("\n--- VALIDASI KUNCI JAWABAN (BACKWARD vs FORWARD CHAINING) ---\n\n")
         f.write(f"{'TARGET JURUSAN':<25} | {'TOP REKOMENDASI':<25} | {'SKOR MATCH':<10} | {'STATUS'}\n")
         f.write("-" * 80 + "\n")
@@ -63,9 +70,9 @@ def validate_answer_keys():
         if success_count == total_count:
             f.write("\nKESIMPULAN: Sistem Forward Chaining 100% KONSISTEN dengan Kunci Jawaban.\n")
         else:
-            f.write("\nKESIMPULAN: Terdapat beberapa ketidakcocokan. Cek logika rule atau threshold similarity.\n")
+            f.write("\nKESIMPULAN: Terdapat beberapa ketidakcocokan.\n")
             
-    print("Validation results saved to validation_output.txt")
+    print(f"Hasil validasi telah disimpan ke {output_path}")
 
 if __name__ == "__main__":
     validate_answer_keys()

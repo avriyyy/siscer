@@ -1,5 +1,10 @@
 import os
 import csv
+import json
+from dotenv import load_dotenv
+from groq import Groq
+
+load_dotenv()
 
 class Rule:
     def __init__(self, condition, action):
@@ -119,7 +124,7 @@ class ForwardChainingEngine:
             sorted_profile = sorted(profile_items, key=lambda x: x[1], reverse=True)
             riasec_code = ''.join([p[0] for p in sorted_profile[:3]])
             
-            explanation = self._generate_explanation(major_name, self.scores, riasec_code)
+            explanation = self.generate_explanation(major_name, self.scores, riasec_code)
 
             results.append({
                 'major': major_name,
@@ -148,7 +153,7 @@ class ForwardChainingEngine:
         similarity = dot_product / (user_mag * major_mag)
         return round(similarity * 10, 2)
 
-    def _generate_explanation(self, major, user_scores, major_code):
+    def generate_explanation(self, major, user_scores, major_code):
         riasec_names = {
             'R': 'Realistic', 'I': 'Investigative', 'A': 'Artistic',
             'S': 'Social', 'E': 'Enterprising', 'C': 'Conventional'
@@ -159,3 +164,84 @@ class ForwardChainingEngine:
         return (f"Jurusan {major} memiliki profil dominan {riasec_names.get(primary, primary)} "
                 f"dan {riasec_names.get(secondary, secondary)}. "
                 f"Ini cocok dengan profilmu yang memiliki skor tinggi di kategori tersebut.")
+
+def get_llm_recommendation(student_scores):
+    api_key = os.getenv("GROQ_API_KEY")
+    
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    scores_text = ", ".join([f"{k}: {v}" for k, v in student_scores.items()])
+
+    knowledge_base_text = ""
+    with open(os.path.join(base_dir, 'jurusan.csv'), 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            knowledge_base_text += f"- Major: {row['nama_jurusan']}, Faculty: {row['fakultas']}\n"
+
+    prompt = f"""
+    You are an expert academic counselor. Your task is to recommend the best university majors for a student based on their RIASEC scores.
+    
+    STUDENT PROFILE (RIASEC SCORES - Scale 0-10):
+    {scores_text}
+    
+    KNOWLEDGE BASE (AVAILABLE MAJORS AND THEIR IDEAL PROFILES - Scale 0-10):
+    {knowledge_base_text}
+    
+    TASK:
+    1. Analyze the compatibility of the student with EVERY major in the Knowledge Base.
+    2. Assign a "match_score" (0.00 to 10.00) with 2 decimal precision for EVERY major.
+    3. Select the Top 3 majors with the highest scores.
+    5. IMPORTANT: DO NOT TRANSLATE MAJOR NAMES. USE THE EXACT INDONESIAN NAMES FROM THE KNOWLEDGE BASE (e.g., "TEKNIK ELEKTRO", not "Electrical Engineering").
+    6. Provide a reasoning ONLY for the Top 3 majors (in Bahasa Indonesia).
+
+    RESPONSE FORMAT (JSON ONLY):
+    {{
+        "all_matches": {{
+            "Exact Indonesian Major Name 1": 9.55,
+            "Exact Indonesian Major Name 2": 8.10,
+            // ... (Include ALL majors from Knowledge Base, DO NOT TRANSLATE)
+        }},
+        "recommendations": [
+            {{
+                "major": "Exact Indonesian Major Name of Rank 1",
+                "match_score": 9.55,
+                "reasoning": "Explanation in Bahasa Indonesia..."
+            }},
+            // ... (Top 3 only)
+        ],
+        "analysis": "A brief overall analysis of the student's profile in Bahasa Indonesia, citing specific answers."
+    }}
+    """
+    
+    client = Groq(api_key=api_key)
+
+    model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+
+    try:
+        completion = client.chat.completions.create(
+            model=model_name,
+            messages=[
+              {
+                "role": "user",
+                "content": prompt
+              }
+            ],
+            temperature=0.6,
+            max_completion_tokens=4096,
+            top_p=0.95,
+            stop=None,
+            stream=False
+        )
+        
+        content = completion.choices[0].message.content
+        
+        if "```json" in content:
+            content = content.split("```json")[1].split("```")[0].strip()
+        elif "```" in content:
+            content = content.split("```")[1].strip()
+            
+        return json.loads(content)
+        
+    except Exception as e:
+        print(f"LLM Exception: {e}")
+        return None

@@ -4,8 +4,7 @@ import json
 import os
 import csv
 from dotenv import load_dotenv
-from groq import Groq
-from riasec_engine import KnowledgeBase, ForwardChainingEngine
+from riasec_engine import KnowledgeBase, ForwardChainingEngine, get_llm_recommendation
 
 load_dotenv()
 
@@ -13,80 +12,6 @@ app = Flask(__name__)
 app.secret_key = 'siscer_secret_key_2024'
 
 kb = KnowledgeBase()
-
-def get_llm_recommendation(student_scores):
-    api_key = os.getenv("GROQ_API_KEY")
-    
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    knowledge_base_text = ""
-    with open(os.path.join(base_dir, 'jurusan.csv'), 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            knowledge_base_text += f"- Major: {row['nama_jurusan']}, Faculty: {row['fakultas']}, RIASEC Profile: R={row['R']}, I={row['I']}, A={row['A']}, S={row['S']}, E={row['E']}, C={row['C']}\n"
-
-    scores_text = ", ".join([f"{k}: {v}" for k, v in student_scores.items()])
-    
-    prompt = f"""
-    You are an expert academic counselor. Your task is to recommend the best university majors for a student based on their RIASEC scores.
-    
-    STUDENT PROFILE (RIASEC SCORES - Scale 0-10):
-    {scores_text}
-    
-    KNOWLEDGE BASE (AVAILABLE MAJORS AND THEIR IDEAL PROFILES - Scale 0-10):
-    {knowledge_base_text}
-    
-    INSTRUCTIONS:
-    1. Compare the student's scores with the ideal profiles in the Knowledge Base.
-    2. Select exactly 3 majors that are the best match.
-    3. You MUST ONLY select majors from the KNOWLEDGE BASE list above.
-    4. Provide a reasoning for each recommendation based on the score comparison.
-    5. IMPORTANT: PROVIDE THE "reasoning" AND "analysis" IN BAHASA INDONESIA.
-    
-    Please provide the response in the following JSON format:
-    {{
-        "recommendations": [
-            {{
-                "major": "Exact Major Name from Knowledge Base",
-                "reasoning": "Explanation in Bahasa Indonesia referencing the student's scores vs the major's profile."
-            }},
-            ...
-        ],
-        "analysis": "A brief overall analysis of the student's profile in Bahasa Indonesia."
-    }}
-    """
-    
-    client = Groq(api_key=api_key)
-
-    model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
-
-    try:
-        completion = client.chat.completions.create(
-            model=model_name,
-            messages=[
-              {
-                "role": "user",
-                "content": prompt
-              }
-            ],
-            temperature=0.6,
-            max_completion_tokens=4096,
-            top_p=0.95,
-            stop=None,
-            stream=False
-        )
-        
-        content = completion.choices[0].message.content
-        
-        if "```json" in content:
-            content = content.split("```json")[1].split("```")[0].strip()
-        elif "```" in content:
-            content = content.split("```")[1].strip()
-            
-        return json.loads(content)
-        
-    except Exception as e:
-        print(f"LLM Exception: {e}")
-        return None
 
 @app.route('/')
 def index():
@@ -147,9 +72,37 @@ def rekomendasi():
 def analyze_ai():
     student_scores = session.get('student_scores')
     if not student_scores:
-        return jsonify({'error': 'No scores found in session'}), 400
+        return jsonify({'error': 'Skor tidak ditemukan'}), 400
         
     llm_result = get_llm_recommendation(student_scores)
+    
+    if llm_result and 'recommendations' in llm_result:
+        engine = ForwardChainingEngine(kb)
+        
+        for rec in llm_result['recommendations']:
+            major_name = rec['major']
+            
+            if major_name in kb.majors:
+                major_profile = kb.majors[major_name]
+                
+                match_score = engine._calculate_similarity(student_scores, major_profile)
+                
+                profile_items = [(k, v) for k, v in major_profile.items() if k in ['R','I','A','S','E','C']]
+                sorted_profile = sorted(profile_items, key=lambda x: x[1], reverse=True)
+                riasec_code = ''.join([p[0] for p in sorted_profile[:3]])
+                
+                rec['profil_detail'] = major_profile
+                rec['matching_score'] = match_score
+                rec['riasec_code'] = riasec_code
+                
+                # We do NOT overwrite reasoning here anymore. LLM reasoning is used.
+            else:
+                rec['profil_detail'] = {k:0 for k in ['R','I','A','S','E','C']}
+                rec['matching_score'] = 0
+                rec['riasec_code'] = "N/A"
+
+        llm_result['student_scores'] = student_scores
+
     return jsonify(llm_result)
 
 if __name__ == '__main__':

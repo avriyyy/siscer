@@ -42,10 +42,10 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('quizForm').addEventListener('submit', function(e) {
-                const questions = {{ questions | length }};
+                const totalQuestions = parseInt('{{ questions | length }}');
                 let allAnswered = true;
 
-                for (let i = 1; i <= questions; i++) {
+                for (let i = 1; i <= totalQuestions; i++) {
                     const radios = document.querySelectorAll(`input[name="Q${i}"]`);
                     let answered = false;
 
