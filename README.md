@@ -1,10 +1,10 @@
-# Dokumentasi Teknis Sistem Rekomendasi Karir (SISCER)
+# Dokumentasi Teknis Sistem Rekomendasi Jurusan
 
-Dokumen ini menjelaskan struktur kode dan logika backend yang digunakan dalam aplikasi SISCER (Sistem Cerdas Rekomendasi Karir).
+Dokumen ini menjelaskan struktur kode dan logika backend yang digunakan dalam aplikasi JurusanFinder.
 
 ---
 
-## 1. Mesin Utama: `riasec_engine.py`
+## 1. File Utama: `riasec_engine.py`
 
 File ini adalah otak dari sistem yang menangani pemrosesan logika Forward Chaining dan integrasi dengan Large Language Model (LLM).
 
@@ -12,7 +12,7 @@ File ini adalah otak dari sistem yang menangani pemrosesan logika Forward Chaini
 
 #### `class Rule`
 
-Objek sederhana untuk merepresentasikan aturan logika "JIKA-MAKA".
+Objek sederhana untuk merepresentasikan aturan logika "IF-THEN".
 
 - **Atribut**:
   - `condition`: Kode kondisi (misal: jawaban dari pertanyaan tertentu).
